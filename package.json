@@ -1,0 +1,17 @@
+{
+  "name": "nav",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+  "build": "webpack --config webpack.config.js",
+  "dev": "webpack --config webpack.config.js --mode development"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  }
+}
