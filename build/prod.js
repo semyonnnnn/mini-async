@@ -1,0 +1,1 @@
+(()=>{"use strict";const e={div:{textContent:"test"}},t={log(){console.log("im in renderer.js:",e)}},n=document.getElementById("c447f2f0-11ee-4833-9f95-cd7c08ba671e").parentElement,o=document.createElement("div");o.textContent="firstborn",n.appendChild(o),t.log()})();
