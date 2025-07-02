@@ -1,10 +1,12 @@
-import { renderer } from "./renderer.js";
+import { Renderer } from "./UI/Renderer.js";
 import { CMS_BLOCK_ID } from "./utils/key.js";
+
+import { loadExcelData } from "./async.js";
 
 const cms_block = document.getElementById(CMS_BLOCK_ID).parentElement;
 
-const div = document.createElement("div");
-div.textContent = "firstborn";
-cms_block.appendChild(div);
+new Renderer(cms_block);
 
-renderer.log();
+loadExcelData().then((data) => {
+  console.log("Parsed Excel data:", data);
+});
