@@ -5,8 +5,8 @@
   "description": "",
   "main": "app.js",
  "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.mjs",
-    "dev": "NODE_ENV=development webpack --config webpack.config.mjs --watch"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.mjs",
+    "dev": "cross-env NODE_ENV=development webpack --config webpack.config.mjs --watch"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,8 @@
   "devDependencies": {
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
-    "webpack-shell-plugin-next": "^2.3.2"
+    "webpack-shell-plugin-next": "^2.3.2",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "xlsx": "^0.18.5"
