@@ -1,8 +1,17 @@
 export class XLSX_parser {
+  rawData = null;
   constructor() {
-    this.getRawJSON();
-    this.JSON_modifier();
-    this.log();
+    this.init();
+    this.columns_needed = [
+      "отчетная дата",
+      "краткое наименование",
+      "отчетный период",
+    ];
+  }
+
+  async init() {
+    this.rawJSON = await this.getRawJSON();
+    await this.JSON_modifier();
   }
 
   isDev =
@@ -38,7 +47,17 @@ export class XLSX_parser {
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
 
-    const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    const json = XLSX.utils
+      .sheet_to_json(worksheet, { header: 1, defval: "" })
+      .map((row) => {
+        return row.map((cell) => {
+          if (cell !== undefined || cell !== null) {
+            return cell.toString();
+          } else {
+            return "";
+          }
+        });
+      });
 
     const headers = json[0];
 
@@ -46,15 +65,10 @@ export class XLSX_parser {
       return el.toLowerCase().replace(/ё/g, "е");
     }
 
-    const report_date_index = headers.findIndex((el) =>
-      normalize(el).includes("отчетная дата")
-    );
-    const short_name_index = headers.findIndex((el) =>
-      normalize(el).includes("краткое наименование")
-    );
-    const report_range_index = headers.findIndex((el) =>
-      normalize(el).includes("отчетный период")
-    );
+    const [report_date_index, short_name_index, report_range_index] =
+      this.columns_needed.map((col) => {
+        return headers.findIndex((el) => normalize(el).includes(col));
+      });
 
     const indices_needed = [
       short_name_index,
@@ -63,29 +77,57 @@ export class XLSX_parser {
     ];
 
     const min_json = json.map((row) => {
-      return row.filter((cell, index) => indices_needed.includes(index));
+      return row
+        .map((cell, index) => ({
+          name: XLSX.utils.encode_col(index),
+          value: cell,
+        }))
+        .filter((cell, index) => indices_needed.includes(index));
     });
 
-    const fixed_json = min_json.map((row) => {
+    const broken_json = {
+      ["Вы молодец"]: ["Ошибок в Excel файле нет!"],
+    };
+
+    const fixed_json = min_json.map((row, row_index) => {
       return row.map((cell, index) => {
-        if (typeof cell === "string") {
-          return cell;
-        } else if (index !== 2) {
-          return cell.toString();
+        const value = cell.value;
+        value.toString();
+
+        if (!value.trim()) {
+          delete broken_json["Вы молодец"];
+          broken_json[`Ошибка в ${cell.name}.${row_index + 1}`] = row.map(
+            (cell) => {
+              if (value.trim()) {
+                return `${cell.name}.${row_index}: [${cell.value}]`;
+              } else {
+                return `Пустая ячейка: ${cell.name}.${row_index}: [${cell.value}]`;
+              }
+            }
+          );
         } else {
-          const excelEpoch = new Date(Date.UTC(1899, 11, 30));
-          const msPerDay = 24 * 60 * 60 * 1000;
-          const raw_date = new Date(excelEpoch.getTime() + cell * msPerDay);
-          return new Intl.DateTimeFormat("ru-RU").format(raw_date);
+          if (typeof value === "number" && !isNaN(value)) {
+            const excelEpoch = new Date(Date.UTC(1899, 11, 30));
+            const msPerDay = 24 * 60 * 60 * 1000;
+            const raw_date = new Date(excelEpoch.getTime() + value * msPerDay);
+            return new Intl.DateTimeFormat("ru-RU").format(raw_date);
+          } else {
+            return "Неверная дата";
+          }
         }
       });
     });
 
-    return json;
+    // console.log("json whole", json);
+    // console.log("min_json", min_json);
+    console.table(broken_json);
+    // console.log("fixed_json no errors, clean", fixed_json);
+
+    return fixed_json;
   }
 
   async JSON_modifier() {
-    const raw_json = await this.getRawJSON();
+    const raw_json = this.rawJSON;
     const raw_content = raw_json.slice(1, raw_json.length - 1);
 
     const months = [
@@ -120,11 +162,6 @@ export class XLSX_parser {
       .map(({ index }) => "index " + index + " contains `??`");
 
     return raw_json;
-  }
-
-  async log() {
-    const result = await this.getRawJSON();
-    console.log(result);
   }
 }
 
