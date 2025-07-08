@@ -1,9 +1,7 @@
 import { columns_needed } from "../utils/columns_needed.js";
 
 export class XLSX_parser {
-  constructor() {
-    this.init();
-  }
+  constructor() {}
 
   async init() {
     this.rawJSON = await this.getRawJSON();
@@ -215,8 +213,6 @@ export class XLSX_parser {
         data_by_month_and_day[month][day].push([row[0], row[1]]);
       }
     });
-
-    console.log(data_by_month_and_day);
 
     return data_by_month_and_day;
   }

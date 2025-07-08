@@ -1,11 +1,9 @@
-import { config } from "../config.js";
 import * as styles from "../styles/styles.js";
 import { XLSX_parser } from "../Parsers/XLSX_parser.js";
 
 export class Renderer {
   constructor(cms_block, month) {
-    this.set_variables(cms_block);
-    this.build();
+    this.cms_block = cms_block;
     this.month = month;
     this.data = null;
   }
@@ -14,48 +12,56 @@ export class Renderer {
     const parser = new XLSX_parser();
     await parser.init();
     this.data = parser.sorted[this.month];
+
     console.log(this.data);
+
+    this.build();
     return this;
   }
 
-  set_variables = (cms_block) => {
-    this.cms_block = cms_block;
-    this.config = config;
-  };
-
-  build = () => {
-    this.create_DOM(this.cms_block, this.config);
+  build = async () => {
+    this.create_DOM(this.cms_block);
     this.assignStyles();
   };
 
-  create_DOM(parent, config) {
-    for (const DOM_key in config) {
-      const value = config[DOM_key];
-      try {
-        const DOM_element = document.createElement(DOM_key);
-        if (DOM_element instanceof HTMLUnknownElement) {
-          throw new Error(`${DOM_key} is unknown!`);
-        }
-        parent.appendChild(DOM_element);
+  create_DOM(parent) {
+    const outerWrapper = document.createElement("div");
+    outerWrapper.classList = "outerWrapper";
 
-        for (const prop in value) {
-          if (prop === "children") continue;
-          if (prop in DOM_element) {
-            DOM_element[prop] = value[prop];
-          } else {
-            DOM_element.setAttribute(prop, value[prop]);
-          }
-        }
+    this.data.forEach((date, index) => {
+      const innerWrapper = document.createElement("div");
+      const circleDigit = document.createElement("div");
+      const list = document.createElement("div");
+      const circleWrapper = document.createElement("div");
 
-        parent.appendChild(DOM_element);
+      circleDigit.classList = "circleDigit";
+      circleDigit.textContent = index + 1;
+      circleWrapper.classList = "circleWrapper";
 
-        if (value.hasOwnProperty("children")) {
-          this.create_DOM(DOM_element, value.children);
-        }
-      } catch (e) {
-        console.error(e.message);
-      }
-    }
+      list.classList = "list";
+
+      innerWrapper.classList = "innerWrapper";
+
+      date.forEach((item) => {
+        const blueUpper = document.createElement("div");
+        const blackLower = document.createElement("div");
+
+        blueUpper.textContent = item[0];
+        blackLower.textContent = item[1];
+
+        blueUpper.classList = "blueUpper";
+        blackLower.classList = "blackLower";
+
+        list.appendChild(blueUpper);
+        list.appendChild(blackLower);
+      });
+
+      circleWrapper.appendChild(circleDigit);
+      innerWrapper.appendChild(circleWrapper);
+      innerWrapper.appendChild(list);
+      outerWrapper.appendChild(innerWrapper);
+    });
+    parent.appendChild(outerWrapper);
   }
 
   assignStyles = () => {
