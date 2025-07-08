@@ -11,7 +11,7 @@ export class XLSX_parser {
 
   async init() {
     this.rawJSON = await this.getRawJSON();
-    await this.JSON_modifier();
+    await this.JSON_sorted();
   }
 
   isDev =
@@ -76,100 +76,131 @@ export class XLSX_parser {
       report_date_index,
     ];
 
-    const min_json = json.map((row) => {
+    const min_json = json.map((row, row_index) => {
       return row
         .map((cell, index) => ({
-          name: XLSX.utils.encode_col(index),
+          name: `${XLSX.utils.encode_col(index)}.${row_index + 1}`,
           value: cell,
         }))
-        .filter((cell, index) => indices_needed.includes(index));
-    });
-
-    const broken_json = {
-      ["Вы молодец"]: ["Ошибок в Excel файле нет!"],
-    };
-
-    const fixed_json = min_json.map((row, row_index) => {
-      return row.map((cell, index) => {
-        const value = cell.value;
-        value.toString();
-
-        if (!value.trim()) {
-          delete broken_json["Вы молодец"];
-          broken_json[`Ошибка в ${cell.name}.${row_index + 1}`] = row.map(
-            (cell) => {
-              if (value.trim()) {
-                return `${cell.name}.${row_index}: [${cell.value}]`;
-              } else {
-                return `Пустая ячейка: ${cell.name}.${row_index}: [${cell.value}]`;
-              }
-            }
-          );
-        } else {
-          if (typeof value === "number" && !isNaN(value)) {
+        .filter((cell, index) => indices_needed.includes(index))
+        .map((cell, index) => {
+          if (index === 2 && /^\d+$/.test(cell.value)) {
+            const value = parseInt(cell.value, 10);
             const excelEpoch = new Date(Date.UTC(1899, 11, 30));
             const msPerDay = 24 * 60 * 60 * 1000;
             const raw_date = new Date(excelEpoch.getTime() + value * msPerDay);
-            return new Intl.DateTimeFormat("ru-RU").format(raw_date);
+            const new_value = new Intl.DateTimeFormat("ru-RU").format(raw_date);
+            return { name: cell.name, value: new_value };
           } else {
-            return "Неверная дата";
+            return cell;
+          }
+        });
+    });
+
+    const purgeValues = (cell, index) => {
+      if (!cell.value.trim()) {
+        return false;
+      } else if (index === 2) {
+        if (!/^\d{2}\.\d{2}\.\d{4}$/.test(cell.value)) {
+          return false;
+        } else {
+          const [day, month, year] = cell.value.split(".").map(Number);
+          const date = new Date(year, month - 1, day);
+          if (
+            date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day
+          ) {
+            return false;
+          } else {
+            return true;
           }
         }
-      });
-    });
+      } else {
+        return true;
+      }
+    };
 
-    // console.log("json whole", json);
-    // console.log("min_json", min_json);
-    console.table(broken_json);
-    // console.log("fixed_json no errors, clean", fixed_json);
+    const no_error_rows_json = min_json.filter((row) => row.every(purgeValues));
 
-    return fixed_json;
+    const only_error_rows_json = min_json.filter(
+      (row) => !row.every(purgeValues)
+    );
+
+    const errors_json = [];
+    if (Object.keys(only_error_rows_json).length === 0) {
+      errors_json["Вы молодец"] = ["Ошибок в Excel файле нет!"];
+    } else {
+      only_error_rows_json.slice(1).forEach((row) =>
+        row.forEach((cell, index) => {
+          const value = cell.value;
+          const name = cell.name;
+
+          if (!value.trim()) {
+            errors_json[`Пустая ячейка ${name}`] = `${name}: [${value}]`;
+          } else {
+            if (index === 2) {
+              if (!/^\d{2}\.\d{2}\.\d{4}$/.test(value)) {
+                errors_json[
+                  `Образец даты ${name}: <dd.mm.yyyy>`
+                ] = `${name}: [${value}]`;
+              } else {
+                const [day, month, year] = cell.value.split(".").map(Number);
+                const date = new Date(year, month - 1, day);
+                if (
+                  date.getFullYear() !== year ||
+                  date.getMonth() !== month - 1 ||
+                  date.getDate() !== day
+                ) {
+                  errors_json[
+                    `Образец даты ${name}: <dd.mm.yyyy>`
+                  ] = `${name}: [${value}]`;
+                }
+              }
+            }
+          }
+        })
+      );
+    }
+
+    console.table(errors_json);
+
+    const no_excel_json = no_error_rows_json.map((row) =>
+      row.map((cell) => cell.value)
+    );
+
+    return no_excel_json;
   }
 
-  async JSON_modifier() {
+  async JSON_sorted() {
     const raw_json = this.rawJSON;
-    const raw_content = raw_json.slice(1, raw_json.length - 1);
+    const file_year = Number(raw_json[0][2].split(".")[2]);
 
-    const months = [
-      "Январь",
-      "Февраль",
-      "Март",
-      "Апрель",
-      "Май",
-      "Июнь",
-      "Июль",
-      "Август",
-      "Сентябрь",
-      "Октябрь",
-      "Ноябрь",
-      "Декабрь",
+    const data_by_month_and_day = [
+      new Array(31),
+      file_year % 4 === 0 ? new Array(29) : new Array(28),
+      new Array(31),
+      new Array(30),
+      new Array(31),
+      new Array(30),
+
+      new Array(31),
+      new Array(31),
+
+      new Array(30),
+      new Array(31),
+      new Array(30),
+      new Array(31),
     ];
 
-    const byMonth = raw_content.map((row) => {
-      const dateStr = row[2];
-      if (typeof dateStr === "string" && dateStr.includes(".")) {
-        return dateStr.split(".")[1];
-      } else {
-        return "??"; // fallback
-      }
+    raw_json.forEach((row) => {
+      const day = Number(row[2].split(".")[0]) - 1;
+      const month = Number(row[2].split(".")[1]) - 1;
+      data_by_month_and_day[month][day] = [row[0], row[1]];
+
+      // console.log(day, month);
     });
 
-    const byMonthCheck = byMonth
-      .map((el, index) => ({ el, index }))
-      .filter(({ el }) => {
-        return el.includes("??");
-      })
-      .map(({ index }) => "index " + index + " contains `??`");
-
-    return raw_json;
+    return data_by_month_and_day;
   }
 }
-
-// function getRussianMonth(dateStr) {
-//   const [day, month, year] = dateStr.split(".");
-//   const date = new Date(`${year}-${month}-${day}`);
-//   const monthName = new Intl.DateTimeFormat("ru-RU", { month: "long" }).format(date);
-//   return monthName.charAt(0).toUpperCase() + monthName.slice(1);
-// }
-
-// console.log(getRussianMonth("01.07.2025")); // "Июль"
