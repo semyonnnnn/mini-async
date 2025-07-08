@@ -13,7 +13,7 @@ export class Renderer {
   async init() {
     const parser = new XLSX_parser();
     await parser.init();
-    this.data = parser.sorted;
+    this.data = parser.sorted[this.month];
     console.log(this.data);
     return this;
   }

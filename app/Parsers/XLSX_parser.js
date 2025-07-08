@@ -1,7 +1,9 @@
 import { columns_needed } from "../utils/columns_needed.js";
 
 export class XLSX_parser {
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
   async init() {
     this.rawJSON = await this.getRawJSON();
@@ -70,7 +72,23 @@ export class XLSX_parser {
       report_date_index,
     ];
 
-    const min_json = json.map((row, row_index) => {
+    const no_canceled = json.filter((row, index, arr) => {
+      if (
+        row[
+          json[0].findIndex((item) =>
+            item.trim().toLowerCase().includes("примечание")
+          )
+        ]
+          .trim()
+          .toLowerCase()
+          .includes("отмен")
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    const min_json = no_canceled.map((row, row_index) => {
       return row
         .map((cell, index) => ({
           name: `${XLSX.utils.encode_col(index)}.${row_index + 1}`,
@@ -197,6 +215,8 @@ export class XLSX_parser {
         data_by_month_and_day[month][day].push([row[0], row[1]]);
       }
     });
+
+    console.log(data_by_month_and_day);
 
     return data_by_month_and_day;
   }
