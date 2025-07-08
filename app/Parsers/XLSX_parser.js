@@ -1,17 +1,11 @@
+import { columns_needed } from "../utils/columns_needed.js";
+
 export class XLSX_parser {
-  rawData = null;
-  constructor() {
-    this.init();
-    this.columns_needed = [
-      "отчетная дата",
-      "краткое наименование",
-      "отчетный период",
-    ];
-  }
+  constructor() {}
 
   async init() {
     this.rawJSON = await this.getRawJSON();
-    await this.JSON_sorted();
+    this.sorted = await this.JSON_sorted();
   }
 
   isDev =
@@ -66,7 +60,7 @@ export class XLSX_parser {
     }
 
     const [report_date_index, short_name_index, report_range_index] =
-      this.columns_needed.map((col) => {
+      columns_needed.map((col) => {
         return headers.findIndex((el) => normalize(el).includes(col));
       });
 
@@ -196,9 +190,12 @@ export class XLSX_parser {
     raw_json.forEach((row) => {
       const day = Number(row[2].split(".")[0]) - 1;
       const month = Number(row[2].split(".")[1]) - 1;
-      data_by_month_and_day[month][day] = [row[0], row[1]];
 
-      // console.log(day, month);
+      if (!data_by_month_and_day[month][day]) {
+        data_by_month_and_day[month][day] = [[row[0], row[1]]];
+      } else {
+        data_by_month_and_day[month][day].push([row[0], row[1]]);
+      }
     });
 
     return data_by_month_and_day;

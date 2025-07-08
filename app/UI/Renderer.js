@@ -1,10 +1,21 @@
 import { config } from "../config.js";
 import * as styles from "../styles/styles.js";
+import { XLSX_parser } from "../Parsers/XLSX_parser.js";
 
 export class Renderer {
-  constructor(cms_block) {
+  constructor(cms_block, month) {
     this.set_variables(cms_block);
     this.build();
+    this.month = month;
+    this.data = null;
+  }
+
+  async init() {
+    const parser = new XLSX_parser();
+    await parser.init();
+    this.data = parser.sorted;
+    console.log(this.data);
+    return this;
   }
 
   set_variables = (cms_block) => {

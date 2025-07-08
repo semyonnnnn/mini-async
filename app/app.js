@@ -1,12 +1,11 @@
 import { Renderer } from "./UI/Renderer.js";
 import { CMS_BLOCK_ID } from "./utils/key.js";
-import { XLSX_parser } from "./Parsers/XLSX_parser.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const cms_block = document.getElementById(CMS_BLOCK_ID)?.parentElement;
 
   if (cms_block) {
-    new Renderer(cms_block);
-    new XLSX_parser();
+    const renderer = new Renderer(cms_block, 6);
+    await renderer.init();
   }
 });
