@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cms_block = document.getElementById(CMS_BLOCK_ID)?.parentElement;
 
   if (cms_block) {
-    const renderer = new Renderer(cms_block, 6);
+    const renderer = new Renderer(cms_block);
     await renderer.init();
   }
 });
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
+}

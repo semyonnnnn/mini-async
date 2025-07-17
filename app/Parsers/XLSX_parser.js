@@ -1,7 +1,9 @@
 import { columns_needed } from "../utils/columns_needed.js";
 
 export class XLSX_parser {
-  constructor() {}
+  constructor(year) {
+    this.year = year;
+  }
 
   async init() {
     this.rawJSON = await this.getRawJSON();
@@ -32,8 +34,7 @@ export class XLSX_parser {
 
   async getRawJSON() {
     const XLSX = await this.CDN_or_Local();
-    const url =
-      "https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_2025.xlsx";
+    const url = `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`;
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: "array" });
