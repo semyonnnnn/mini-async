@@ -7,8 +7,11 @@ export class Renderer {
     this.cms_block = cms_block;
 
     this.requestedYear = new URLSearchParams(window.location.search).get("y");
-    this.requestedMonth =
-      new URLSearchParams(window.location.search).get("m") - 1;
+    this.requestedMonth = (() => {
+      const m = new URLSearchParams(window.location.search).get("m");
+      return m !== null && !isNaN(m) ? Number(m) - 1 : null;
+    })();
+
     this.nowYear = new Date().getFullYear();
     this.nowMonth = new Date().getMonth();
 
@@ -16,8 +19,10 @@ export class Renderer {
       currentMonth: this.requestedMonth ?? this.nowMonth,
       displayedYear: this.requestedYear ?? this.nowYear,
       hiddenYear:
-        this.requestedYear != this.nowYear
-          ? this.nowYear + 1
+        this.requestedYear !== null
+          ? this.requestedYear !== this.nowYear
+            ? this.requestedYear + 1
+            : this.nowYear - 1
           : this.nowYear - 1,
     };
 
@@ -56,7 +61,7 @@ export class Renderer {
       },
     });
 
-    this.data = null;
+    // this.data = null;
   }
 
   async init() {
@@ -78,6 +83,10 @@ export class Renderer {
   create_DOM(parent) {
     const outerWrapper = document.createElement("div");
     outerWrapper.classList = "outerWrapper";
+    if (!Array.isArray(this.data)) {
+      console.error(`this.data: ${this.data}`);
+      return;
+    }
 
     this.data.forEach((date, index) => {
       const innerWrapper = document.createElement("div");
