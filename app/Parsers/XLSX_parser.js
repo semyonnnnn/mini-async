@@ -11,15 +11,13 @@ export class XLSX_parser {
     this.sorted = await this.JSON_sorted();
   }
 
-  isDev = false;
-
-  // isDev =
-  //   window.location.hostname === "localhost" ||
-  //   window.location.hostname === "127.0.0.1" ||
-  //   (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
+  isDev =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
 
   async CDN_or_Local() {
-    if (!this.isDev) {
+    if (this.isDev) {
       if (!window.XLSX) {
         await new Promise((resolve) => {
           const script = document.createElement("script");
@@ -31,7 +29,8 @@ export class XLSX_parser {
       }
       return window.XLSX;
     } else {
-      return (await import("./xlsx.full.min.js")).default;
+      const xlsxModule = await import("xlsx");
+      return xlsxModule.default || xlsxModule;
     }
   }
 
