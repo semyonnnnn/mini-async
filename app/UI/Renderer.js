@@ -88,15 +88,25 @@ export class Renderer {
       return;
     }
 
+    const grandWrapper = document.createElement("div");
     this.data.forEach((date, index) => {
       const innerWrapper = document.createElement("div");
       const circleDigit = document.createElement("div");
       const list = document.createElement("div");
       const circleWrapper = document.createElement("div");
+      const horizontalLine = document.createElement("div");
+      const verticalLine = document.createElement("div");
+
+      grandWrapper.classList = "grandWrapper";
 
       circleDigit.classList = "circleDigit";
       circleDigit.textContent = index + 1;
       circleWrapper.classList = "circleWrapper";
+
+      horizontalLine.classList = "horizontalLine";
+      innerWrapper.appendChild(horizontalLine);
+      verticalLine.classList = "verticalLine";
+      innerWrapper.appendChild(verticalLine);
 
       list.classList = "list";
 
@@ -127,8 +137,9 @@ export class Renderer {
       outerWrapper.appendChild(innerWrapper);
     });
 
+    grandWrapper.appendChild(outerWrapper);
     this.createPicker(parent);
-    parent.appendChild(outerWrapper);
+    parent.appendChild(grandWrapper);
   }
 
   getMonthNames(monthIndex) {

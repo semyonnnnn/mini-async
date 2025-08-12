@@ -1,9 +1,13 @@
+export const grandWrapper = {};
+
 export const outerWrapper = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit, minmax(15rem, 2fr))",
   gap: "2rem",
   padding: "2rem",
-  backgroundColor: "rgb(244, 245, 255)",
+  backgroundColor: "rgba(255, 245, 255, .1)",
+  padding: "2rem 7rem",
+  overflow: "hidden",
 };
 
 export const innerWrapper = {
@@ -15,8 +19,6 @@ export const innerWrapper = {
 
   minWidth: "10rem",
   width: "100%",
-  boxShadow: "0px 0px 7px black",
-  // backgroundColor: "rgb(255, 136, 0)",
   padding: "1rem .5rem",
   borderRadius: "10px",
 
@@ -24,42 +26,22 @@ export const innerWrapper = {
   fontFamily: "MontserratAlternates",
   fontWeight: 400,
   fontStyle: "normal",
-};
-
-export const circleWrapper = {
-  boxShadow: "inset 0 -2px 2px rgba(0,0,0,.1)",
-  backgroundColor: "white",
-  fontSize: "2.9rem",
-  width: "4.5rem",
-  height: "4.5rem",
-  borderRadius: "10px",
   position: "relative",
 };
 
-export const circleDigit = {
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  color: "rgb(64, 173, 224)",
-
-  fontWeight: 400,
-};
-
 export const blueUpper = {
-  color: "rgb(112, 64, 224)",
+  color: "#0f81a3",
   textWrap: "wrap",
 
   textAlign: "center",
-  fontSize: "1rem",
-  fontWeight: 600,
+  fontSize: "1.5rem",
+  fontWeight: 400,
   fontStyle: "normal",
 };
 
 export const blackLower = {
   fontWeight: 400,
+  fontSize: "1.2rem",
   color: "rgb(51, 51, 51)",
 };
 
@@ -70,14 +52,16 @@ export const list = {
   justifyContent: "center",
   alignItems: "center",
   gap: "1rem",
+  backgroundColor: "white",
+  padding: "1rem 0",
+  boxShadow: "3px 7px 7px rgba(0,0,0,.5)",
+  zIndex: "3",
 };
 
 export const smallListContainer = {
-  boxShadow: "inset 0 -2px 2px rgba(0,0,0,.1)",
   padding: ".4rem 0",
   width: "100%",
   borderRadius: "10px",
-  backgroundColor: "rgb(247, 247, 247)",
 
   display: "flex",
   flexDirection: "column",

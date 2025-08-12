@@ -1,5 +1,6 @@
 import { columns_needed } from "../utils/columns_needed.js";
 // const XLSX = require;
+// import * as XLSX from "./xlsx.full.min.js";
 
 export class XLSX_parser {
   constructor(year) {
@@ -11,31 +12,31 @@ export class XLSX_parser {
     this.sorted = await this.JSON_sorted();
   }
 
-  isDev =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1" ||
-    (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
+  // isDev =
+  //   window.location.hostname === "localhost" ||
+  //   window.location.hostname === "127.0.0.1" ||
+  //   (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
 
-  async CDN_or_Local() {
-    if (this.isDev) {
-      if (!window.XLSX) {
-        await new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src =
-            "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js";
-          script.onload = resolve;
-          document.head.appendChild(script);
-        });
-      }
-      return window.XLSX;
-    } else {
-      const xlsxModule = await import("xlsx");
-      return xlsxModule.default || xlsxModule;
-    }
-  }
+  // async CDN_or_Local() {
+  //   if (this.isDev) {
+  //     if (!window.XLSX) {
+  //       await new Promise((resolve) => {
+  //         const script = document.createElement("script");
+  //         script.src =
+  //           "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js";
+  //         script.onload = resolve;
+  //         document.head.appendChild(script);
+  //       });
+  //     }
+  //     return window.XLSX;
+  //   } else {
+  //     const xlsxModule = await import("xlsx");
+  //     return xlsxModule.default || xlsxModule;
+  //   }
+  // }
 
   async getRawJSON() {
-    const XLSX = await this.CDN_or_Local();
+    // const XLSX = await this.CDN_or_Local();
     const url = `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`;
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();

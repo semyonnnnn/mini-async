@@ -4,57 +4,57 @@ export * from "./info-styles.js";
 const fontFaces = [
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-Regular.ttf",
     weight: 400,
-    style: "regular",
+    style: "normal",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-Bold.ttf",
     weight: 700,
-    style: "bold",
+    style: "normal",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-Black.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-Black.ttf",
     weight: 900,
-    style: "black",
+    style: "normal",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-Italic.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-Italic.ttf",
     weight: 400,
     style: "italic",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf",
     weight: 700,
-    style: "boldItalic",
+    style: "italic",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-ExtraBold.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-ExtraBold.ttf",
     weight: 800,
-    style: "extraBold",
+    style: "normal",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-ExtraBoldItalic.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-ExtraBoldItalic.ttf",
     weight: 800,
-    style: "extraBoldItalic",
+    style: "italic",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-Thin.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-Thin.ttf",
     weight: 100,
-    style: "thin",
+    style: "normal",
   },
   {
     name: "MontserratAlternates",
-    file: "../../fonts/Montserrat_Alternates/MontserratAlternates-ThinItalic.ttf",
+    file: "Montserrat_Alternates/MontserratAlternates-ThinItalic.ttf",
     weight: 100,
-    style: "thinItalic",
+    style: "italic",
   },
 ];
 
@@ -65,7 +65,7 @@ styleTag.textContent = fontFaces
     ({ name, file, weight, style }) => `
     @font-face {
       font-family: '${name}';
-      src: url('/fonts/${file}') format('truetype');
+      src: url('/fonts/${file}');
       font-weight: ${weight};
       font-style: ${style};
     }

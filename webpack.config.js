@@ -25,15 +25,11 @@ export default {
   },
   resolve: {
     alias: {
-      xlsx: path.resolve(process.cwd(), "node_modules/xlsx/xlsx.js"),
+      // xlsx: path.resolve(process.cwd(), "node_modules/xlsx/xlsx.js"),
     },
     extensions: [".js", ".mjs", ".json"],
   },
-  externals: isDev
-    ? {
-        xlsx: "XLSX",
-      }
-    : {},
+  externals: {},
   module: {
     rules: [
       {
@@ -78,4 +74,7 @@ ${code}`;
       },
     }),
   ],
+  optimization: {
+    splitChunks: false,
+  },
 };
