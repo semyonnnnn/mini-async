@@ -1,6 +1,6 @@
 import { columns_needed } from "../utils/columns_needed.js";
-// const XLSX = require;
-// import * as XLSX from "./xlsx.full.min.js";
+import { read, utils } from "xlsx";
+// import * as XLSX from "./full.min.js";
 
 export class XLSX_parser {
   constructor(year) {
@@ -23,7 +23,7 @@ export class XLSX_parser {
   //       await new Promise((resolve) => {
   //         const script = document.createElement("script");
   //         script.src =
-  //           "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js";
+  //           "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/full.min.js";
   //         script.onload = resolve;
   //         document.head.appendChild(script);
   //       });
@@ -40,12 +40,12 @@ export class XLSX_parser {
     const url = `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`;
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: "array" });
+    const workbook = read(arrayBuffer, { type: "array" });
 
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
 
-    const json = XLSX.utils
+    const json = utils
       .sheet_to_json(worksheet, { header: 1, defval: "" })
       .map((row) => {
         return row.map((cell) => {
@@ -93,7 +93,7 @@ export class XLSX_parser {
     const min_json = no_canceled.map((row, row_index) => {
       return row
         .map((cell, index) => ({
-          name: `${XLSX.utils.encode_col(index)}.${row_index + 1}`,
+          name: `${utils.encode_col(index)}.${row_index + 1}`,
           value: cell,
         }))
         .filter((cell, index) => indices_needed.includes(index))

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
- "scripts": {
+  "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.mjs",
     "dev": "cross-env NODE_ENV=development webpack --config webpack.config.mjs --watch"
   },
@@ -12,12 +12,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
-    "webpack-shell-plugin-next": "^2.3.2",
-    "cross-env": "^7.0.3"
+    "webpack-shell-plugin-next": "^2.3.2"
   },
   "dependencies": {
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }
