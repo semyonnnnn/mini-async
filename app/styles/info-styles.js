@@ -1,11 +1,14 @@
-export const grandWrapper = {};
+export const grandWrapper = {
+  padding: "2rem",
+  backgroundColor: "rgba(255, 245, 255, .1)",
+  borderRadius: "2rem",
+};
 
 export const outerWrapper = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit, minmax(15rem, 2fr))",
   gap: "2rem",
-  padding: "2rem",
-  backgroundColor: "rgba(255, 245, 255, .1)",
+
   padding: "2rem 7rem",
   overflow: "hidden",
 };
@@ -23,7 +26,7 @@ export const innerWrapper = {
   borderRadius: "10px",
 
   fontSize: ".8rem",
-  fontFamily: "MontserratAlternates",
+  fontFamily: "OpenSans",
   fontWeight: 400,
   fontStyle: "normal",
   position: "relative",

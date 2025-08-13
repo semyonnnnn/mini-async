@@ -5,6 +5,8 @@ import { XLSX_parser } from "../Parsers/XLSX_parser.js";
 export class Renderer {
   constructor(cms_block) {
     this.cms_block = cms_block;
+    this.grandWrapper = document.createElement("div");
+    this.dateCalendrier = document.createElement("div");
 
     this.requestedYear = new URLSearchParams(window.location.search).get("y");
     this.requestedMonth = (() => {
@@ -76,6 +78,8 @@ export class Renderer {
 
   build = async () => {
     this.cms_block.innerHTML = "";
+    this.grandWrapper.innerHTML = "";
+    this.dateCalendrier.innerHTML = "";
     this.create_DOM(this.cms_block);
     this.assignStyles();
   };
@@ -87,8 +91,8 @@ export class Renderer {
       console.error(`this.data: ${this.data}`);
       return;
     }
+    this.createPicker(parent);
 
-    const grandWrapper = document.createElement("div");
     this.data.forEach((date, index) => {
       const innerWrapper = document.createElement("div");
       const circleDigit = document.createElement("div");
@@ -97,7 +101,7 @@ export class Renderer {
       const horizontalLine = document.createElement("div");
       const verticalLine = document.createElement("div");
 
-      grandWrapper.classList = "grandWrapper";
+      this.grandWrapper.classList = "grandWrapper";
 
       circleDigit.classList = "circleDigit";
       circleDigit.textContent = index + 1;
@@ -137,9 +141,9 @@ export class Renderer {
       outerWrapper.appendChild(innerWrapper);
     });
 
-    grandWrapper.appendChild(outerWrapper);
-    this.createPicker(parent);
-    parent.appendChild(grandWrapper);
+    this.grandWrapper.appendChild(outerWrapper);
+
+    parent.appendChild(this.grandWrapper);
   }
 
   getMonthNames(monthIndex) {
@@ -153,6 +157,8 @@ export class Renderer {
   }
 
   createPicker(parent) {
+    const dateCalendrier = document.createElement("div");
+    const statCalendrier = document.createElement("div");
     const dateWrapper = document.createElement("div");
 
     const yearWrapper = document.createElement("div");
@@ -164,6 +170,13 @@ export class Renderer {
     const monthsInnerWrapper = document.createElement("div");
 
     dateWrapper.classList = "dateWrapper";
+    statCalendrier.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
+    this.dateCalendrier.appendChild(dateWrapper);
+    this.dateCalendrier.appendChild(statCalendrier);
+    dateCalendrier.appendChild(this.dateCalendrier);
+    dateCalendrier.appendChild(dateWrapper);
+    statCalendrier.classList = "statCalendrier";
+    this.dateCalendrier.classList = "dateCalendrier";
 
     yearWrapper.classList = "yearWrapper";
 
@@ -214,8 +227,9 @@ export class Renderer {
     monthsOuterWrapper.appendChild(currentMonth);
     monthsOuterWrapper.appendChild(monthsInnerWrapper);
     dateWrapper.appendChild(monthsOuterWrapper);
-    parent.appendChild(yearWrapper);
-    parent.appendChild(dateWrapper);
+    dateWrapper.appendChild(yearWrapper);
+    this.dateCalendrier.appendChild(dateWrapper);
+    this.grandWrapper.appendChild(this.dateCalendrier);
   }
 
   assignStyles = () => {

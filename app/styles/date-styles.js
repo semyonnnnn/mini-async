@@ -1,75 +1,79 @@
 export const monthsOuterWrapper = {
   display: "flex",
   gap: "1rem",
+  marginLeft: "15vw",
+  position: "relative",
 };
 
 export const currentMonth = {
-  backgroundColor: "rgb(174, 145, 255)",
-  height: "3rem",
-  padding: "0 1rem",
+  background: `linear-gradient(to right, #75ebbc, rgba(117, 235, 188, .3))`,
+  height: "fit-content",
+  padding: "0rem 5rem",
   width: "fit-content",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "10px",
-  color: "white",
-  boxShadow: "inset 0px -4px 4px rgba(100, 44, 255, 0.2)",
+  color: "#22608a",
   userSelect: "none",
   cursor: "pointer",
 
-  fontSize: ".8rem",
-  fontFamily: "MontserratAlternates",
-  fontWeight: 600,
+  fontSize: "5rem",
+  fontFamily: "DelaGothicOne",
+  fontWeight: 900,
   fontStyle: "black",
+  transform: "rotate(-5deg)",
+  lineHeight: 1.4,
+  overflow: "visible",
 };
 
 export const monthsInnerWrapper = {
   userSelect: "none",
   display: "flex",
   flexDirection: "column",
-  color: "white",
-  backgroundColor: "rgb(79, 56, 145)",
+  color: "#22608a",
+  background: `linear-gradient(to right, #75ebbc, #3997af)`,
   padding: ".5rem 0",
-  borderRadius: "10px",
 
-  fontSize: ".8rem",
-  fontFamily: "MontserratAlternates",
+  fontSize: "2rem",
+  fontFamily: "DelaGothicOne",
   fontWeight: 600,
   fontStyle: "black",
   display: "none",
   position: "absolute",
   left: "6rem",
   zIndex: "99",
+  position: "absolute",
+  top: "10rem",
+  left: "0rem",
 };
 
 export const month = {
-  padding: ".5rem 2rem",
+  padding: "0",
+  paddingLeft: "5rem",
+  paddingRight: "15rem",
   cursor: "pointer",
   hover: {
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
 };
 
 const year = {
   padding: "2rem 5rem",
-  border: "1px solid black",
   color: "#82ffc3",
   width: "fit-content",
   userSelect: "none",
   cursor: "pointer",
-  fontSize: "7rem",
+  fontSize: "5rem",
   fontWeight: "900",
-  transform: "rotate(5deg)",
+  transform: "rotate(5deg) translateY(-2rem)",
   position: "absolute",
-  backgroundColor: "rgb(255,255,245)",
+  backgroundColor: "#3a98b0",
+  fontFamily: "DelaGothicOne",
 };
 export const yearWrapper = {
   height: "10rem",
   display: "flex",
   gap: "1rem",
   marginBottom: "1rem",
-  fontFamily: "MontserratAlternates",
-  position: "relative",
+  fontFamily: "OpenSans",
+  width: "fit-content",
 };
 export const hiddenYear = {
   ...year,
@@ -93,6 +97,8 @@ export const circleWrapper = {
 };
 
 export const circleDigit = {
+  userSelect: "none",
+  fontFamily: "",
   position: "absolute",
   width: "100%",
   height: "100%",
@@ -121,4 +127,23 @@ export const verticalLine = {
   zIndex: "2",
   top: "6rem",
   boxShadow: "0 3px 5px rgb(50,50,50)",
+};
+
+export const dateWrapper = {
+  display: "flex",
+  gap: "3vw",
+  flexWrap: "wrap",
+};
+export const dateCalendrier = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "3rem",
+  marginTop: "3rem",
+  fontFamily: "OpenSans",
+};
+export const statCalendrier = {
+  color: "white",
+  fontSize: "3rem",
+  textAlign: "center",
+  userSelect: "none",
 };
