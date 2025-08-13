@@ -26,7 +26,7 @@ export const innerWrapper = {
   borderRadius: "10px",
 
   fontSize: ".8rem",
-  fontFamily: "OpenSans",
+  fontFamily: "Open Sans",
   fontWeight: 400,
   fontStyle: "normal",
   position: "relative",

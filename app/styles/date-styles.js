@@ -16,7 +16,7 @@ export const currentMonth = {
   cursor: "pointer",
 
   fontSize: "2vw",
-  fontFamily: "DelaGothicOne",
+  fontFamily: "Dela Gothic One",
   fontWeight: 900,
   fontStyle: "black",
   transform: "rotate(-5deg)",
@@ -34,7 +34,7 @@ export const monthsInnerWrapper = {
   padding: ".5rem 0",
 
   fontSize: "2rem",
-  fontFamily: "DelaGothicOne",
+  fontFamily: "Dela Gothic One",
   fontWeight: 600,
   fontStyle: "black",
   display: "none",
@@ -69,14 +69,14 @@ const year = {
   transform: "rotate(5deg) translateY(-2rem)",
   position: "absolute",
   backgroundColor: "#3a98b0",
-  fontFamily: "DelaGothicOne",
+  fontFamily: "Dela Gothic One",
 };
 export const yearWrapper = {
   height: "10rem",
   display: "flex",
   gap: "1rem",
   marginBottom: "1rem",
-  fontFamily: "OpenSans",
+  fontFamily: "Open Sans",
   width: "fit-content",
 };
 export const hiddenYear = {
@@ -143,7 +143,7 @@ export const dateCalendrier = {
   flexDirection: "column",
   gap: "3rem",
   marginTop: "3rem",
-  fontFamily: "OpenSans",
+  fontFamily: "Open Sans",
 };
 export const statCalendrier = {
   color: "white",

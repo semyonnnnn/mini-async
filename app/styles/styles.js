@@ -1,88 +1,33 @@
 export * from "./date-styles.js";
 export * from "./info-styles.js";
 
-const fontFaces = [
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-Regular.ttf",
-    weight: 400,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-Bold.ttf",
-    weight: 700,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-Black.ttf",
-    weight: 900,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-Italic.ttf",
-    weight: 400,
-    style: "italic",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-BoldItalic.ttf",
-    weight: 700,
-    style: "italic",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-ExtraBold.ttf",
-    weight: 800,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-SemiBold.ttf",
-    weight: 600,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-ExtraBoldItalic.ttf",
-    weight: 800,
-    style: "italic",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-Thin.ttf",
-    weight: 100,
-    style: "normal",
-  },
-  {
-    name: "OpenSans",
-    file: "Open_Sans/OpenSans-ThinItalic.ttf",
-    weight: 100,
-    style: "italic",
-  },
-  {
-    name: "DelaGothicOne",
-    file: "Dela_Gothic_One/DelaGothicOne-Regular.ttf",
-    weight: 900,
-    style: "normal",
-  },
-];
-
-const styleTag = document.createElement("style");
-
-styleTag.textContent = fontFaces
-  .map(
-    ({ name, file, weight, style }) => `
-    @font-face {
-      font-family: '${name}';
-      src: url('/fonts/${file}');
-      font-weight: ${weight};
-      font-style: ${style};
+function appendUniqueLink(attrs) {
+  const exists = Array.from(document.head.querySelectorAll("link")).some(
+    (link) => {
+      return Object.entries(attrs).every(([key, value]) => link[key] === value);
     }
-  `
-  )
-  .join("\n");
+  );
+  if (!exists) {
+    const el = document.createElement("link");
+    Object.assign(el, attrs);
+    document.head.appendChild(el);
+  }
+}
 
-document.head.appendChild(styleTag);
+// Preconnects
+appendUniqueLink({
+  rel: "preconnect",
+  href: "https://fonts.googleapis.com",
+});
+
+appendUniqueLink({
+  rel: "preconnect",
+  href: "https://fonts.gstatic.com",
+  crossOrigin: "",
+});
+
+// Fonts stylesheet
+appendUniqueLink({
+  rel: "stylesheet",
+  href: "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap",
+});
