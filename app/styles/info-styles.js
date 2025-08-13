@@ -71,3 +71,24 @@ export const smallListContainer = {
   justifyContent: "center",
   alignItems: "center",
 };
+
+export const info = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "2rem 5rem",
+};
+export const link = {
+  color: "white",
+  backgroundColor: "#22608a",
+  fontFamily: "Open Sans",
+  width: "17rem",
+  padding: "2rem",
+  fontWeight: 600,
+  display: "grid",
+  placeItems: "center",
+};
+export const qr = {
+  width: "5rem",
+  height: "5rem",
+};

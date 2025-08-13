@@ -142,6 +142,20 @@ export class Renderer {
     });
 
     this.grandWrapper.appendChild(outerWrapper);
+    const info = document.createElement("div");
+    info.classList = "info";
+
+    const qr = document.createElement("img");
+    qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
+    qr.classList = "qr";
+
+    const link = document.createElement("div");
+    link.classList = "link";
+    link.textContent = "получить индивидуальный перечень форм".toUpperCase();
+
+    info.appendChild(link);
+    info.appendChild(qr);
+    this.grandWrapper.appendChild(info);
 
     parent.appendChild(this.grandWrapper);
   }
@@ -229,6 +243,7 @@ export class Renderer {
     dateWrapper.appendChild(monthsOuterWrapper);
     dateWrapper.appendChild(yearWrapper);
     this.dateCalendrier.appendChild(dateWrapper);
+
     this.grandWrapper.appendChild(this.dateCalendrier);
   }
 

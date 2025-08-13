@@ -1,7 +1,7 @@
 export const monthsOuterWrapper = {
   display: "flex",
-  gap: "1rem",
-  marginLeft: "7vw",
+  gap: "2rem",
+  marginLeft: "0",
   position: "relative",
 };
 
@@ -15,13 +15,14 @@ export const currentMonth = {
   userSelect: "none",
   cursor: "pointer",
 
-  fontSize: "3vw",
+  fontSize: "3rem",
   fontFamily: "Dela Gothic One",
   fontWeight: 900,
   fontStyle: "black",
   transform: "rotate(-5deg)",
   lineHeight: 1.4,
   overflow: "visible",
+  marginBottom: "5rem",
 };
 
 export const monthsInnerWrapper = {
@@ -64,7 +65,7 @@ const year = {
   width: "fit-content",
   userSelect: "none",
   cursor: "pointer",
-  fontSize: "3vw",
+  fontSize: "3rem",
   fontWeight: "900",
   transform: "rotate(5deg) translateY(-2rem)",
   position: "absolute",
@@ -72,12 +73,14 @@ const year = {
   fontFamily: "Dela Gothic One",
 };
 export const yearWrapper = {
-  height: "10rem",
+  height: "5rem",
   display: "flex",
   gap: "1rem",
   marginBottom: "1rem",
   fontFamily: "Open Sans",
-  width: "fit-content",
+  width: "15rem",
+  justifyContent: "center",
+  alignItems: "center",
 };
 export const hiddenYear = {
   ...year,
@@ -137,6 +140,8 @@ export const dateWrapper = {
   display: "flex",
   gap: "3vw",
   flexWrap: "wrap",
+  justifyContent: "center",
+  alignItems: "center",
 };
 export const dateCalendrier = {
   display: "flex",
@@ -147,7 +152,8 @@ export const dateCalendrier = {
 };
 export const statCalendrier = {
   color: "white",
-  fontSize: "3rem",
+  fontSize: "5vw",
   textAlign: "center",
   userSelect: "none",
+  marginTop: "2rem",
 };
