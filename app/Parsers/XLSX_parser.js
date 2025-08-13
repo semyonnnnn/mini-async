@@ -1,5 +1,7 @@
 import { columns_needed } from "../utils/columns_needed.js";
-import { read, utils } from "xlsx";
+
+// import { read, utils } from "xlsx";
+const { read, utils } = XLSX;
 // import * as XLSX from "./full.min.js";
 
 export class XLSX_parser {

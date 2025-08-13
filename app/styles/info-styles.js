@@ -1,15 +1,15 @@
 export const grandWrapper = {
-  padding: "2rem",
+  padding: "0rem",
   backgroundColor: "rgba(255, 245, 255, .1)",
   borderRadius: "2rem",
 };
 
 export const outerWrapper = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(15rem, 2fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(10rem, 2fr))",
   gap: "2rem",
 
-  padding: "2rem 7rem",
+  padding: "2rem 1rem",
   overflow: "hidden",
 };
 

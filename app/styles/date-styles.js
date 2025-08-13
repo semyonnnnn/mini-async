@@ -6,15 +6,16 @@ export const monthsOuterWrapper = {
 };
 
 export const currentMonth = {
+  textWrap: "nowrap",
   background: `linear-gradient(to right, #75ebbc, rgba(117, 235, 188, .3))`,
   height: "fit-content",
-  padding: "0rem 5rem",
+  padding: "0rem 2vw",
   width: "fit-content",
   color: "#22608a",
   userSelect: "none",
   cursor: "pointer",
 
-  fontSize: "5rem",
+  fontSize: "2vw",
   fontFamily: "DelaGothicOne",
   fontWeight: 900,
   fontStyle: "black",
@@ -24,6 +25,7 @@ export const currentMonth = {
 };
 
 export const monthsInnerWrapper = {
+  textWrap: "nowrap",
   userSelect: "none",
   display: "flex",
   flexDirection: "column",
@@ -45,6 +47,7 @@ export const monthsInnerWrapper = {
 };
 
 export const month = {
+  textWrap: "nowrap",
   padding: "0",
   paddingLeft: "5rem",
   paddingRight: "15rem",
@@ -55,12 +58,13 @@ export const month = {
 };
 
 const year = {
-  padding: "2rem 5rem",
+  textWrap: "nowrap",
+  padding: "1vw 2vw",
   color: "#82ffc3",
   width: "fit-content",
   userSelect: "none",
   cursor: "pointer",
-  fontSize: "5rem",
+  fontSize: "2vw",
   fontWeight: "900",
   transform: "rotate(5deg) translateY(-2rem)",
   position: "absolute",
