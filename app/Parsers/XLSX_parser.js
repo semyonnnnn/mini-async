@@ -39,7 +39,8 @@ export class XLSX_parser {
 
   async getRawJSON() {
     // const XLSX = await this.CDN_or_Local();
-    const url = `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`;
+    const url = `https://66.rosstat.gov.ru/storage/mediabank/stat_calendar_${this.year}.xlsx`;
+    console.log(url);
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
     const workbook = read(arrayBuffer, { type: "array" });

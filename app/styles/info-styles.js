@@ -6,7 +6,7 @@ export const grandWrapper = {
 
 export const outerWrapper = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(10rem, 2fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 2fr))",
   gap: "2rem",
 
   padding: "2rem 1rem",

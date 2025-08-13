@@ -1,7 +1,7 @@
 export const monthsOuterWrapper = {
   display: "flex",
   gap: "1rem",
-  marginLeft: "15vw",
+  marginLeft: "7vw",
   position: "relative",
 };
 
@@ -15,7 +15,7 @@ export const currentMonth = {
   userSelect: "none",
   cursor: "pointer",
 
-  fontSize: "2vw",
+  fontSize: "3vw",
   fontFamily: "Dela Gothic One",
   fontWeight: 900,
   fontStyle: "black",
@@ -64,7 +64,7 @@ const year = {
   width: "fit-content",
   userSelect: "none",
   cursor: "pointer",
-  fontSize: "2vw",
+  fontSize: "3vw",
   fontWeight: "900",
   transform: "rotate(5deg) translateY(-2rem)",
   position: "absolute",
