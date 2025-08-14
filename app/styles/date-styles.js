@@ -7,7 +7,7 @@ export const monthsOuterWrapper = {
 
 export const currentMonth = {
   textWrap: "nowrap",
-  background: `linear-gradient(to right, #75ebbc, rgba(117, 235, 188, .3))`,
+  background: `linear-gradient(to right, #75ebbc,#51b8b4)`,
   height: "fit-content",
   padding: "0rem 2vw",
   width: "fit-content",

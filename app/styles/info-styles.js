@@ -1,6 +1,10 @@
 export const grandWrapper = {
   padding: "0rem",
-  backgroundColor: "rgba(255, 245, 255, .1)",
+  // backgroundColor: "rgba(255, 245, 255, .1)",
+  backgroundImage:
+    "url('https://66.rosstat.gov.ru/storage/mediabank/tile.png')",
+  backgroundRepeat: "repeat",
+
   borderRadius: "2rem",
 };
 
