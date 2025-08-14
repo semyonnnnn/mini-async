@@ -89,6 +89,6 @@ export const link = {
   placeItems: "center",
 };
 export const qr = {
-  width: "5rem",
-  height: "5rem",
+  width: "10rem",
+  height: "10rem",
 };
