@@ -8,22 +8,15 @@ const url = isDev
   ? `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${year}.xlsx`
   : `https://66.rosstat.gov.ru/storage/mediabank/stat_calendar_${year}.xlsx`;
 
-const XLSX = async () => {
+const getXLSX = async () => {
   if (isDev) {
-    if (!window.XLSX) {
-      await new Promise((resolve) => {
-        const script = document.createElement("script");
-        script.src =
-          "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/full.min.js";
-        script.onload = resolve;
-        document.head.appendChild(script);
-      });
-    }
-    return window.XLSX;
+    const { read, utils } = window.XLSX;
+    return { read, utils };
   } else {
     const module = await import("xlsx");
-    return module.default || module;
+    const { read, utils } = module.default || module;
+    return { read, utils };
   }
 };
 
-export { XLSX, url, isDev };
+export { getXLSX, url, isDev };

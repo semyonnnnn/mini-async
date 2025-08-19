@@ -1,9 +1,9 @@
 import { columns_needed } from "../utils/columns_needed.js";
-import { XLSX, url } from "../utils/settings.js";
+import { getXLSX, url } from "../utils/settings.js";
 
 export class XLSX_parser {
   async init() {
-    this.XLSX = await XLSX();
+    this.XLSX = await getXLSX();
     this.rawJSON = await this.getRawJSON();
     this.sorted = await this.JSON_sorted();
   }
