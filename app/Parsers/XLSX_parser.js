@@ -18,26 +18,7 @@ export class XLSX_parser {
     window.location.hostname === "127.0.0.1" ||
     (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
 
-  async CDN_or_Local() {
-    if (this.isDev) {
-      if (!window.XLSX) {
-        await new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src =
-            "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/full.min.js";
-          script.onload = resolve;
-          document.head.appendChild(script);
-        });
-      }
-      return window.XLSX;
-    } else {
-      const xlsxModule = await import("xlsx");
-      return xlsxModule.default || xlsxModule;
-    }
-  }
-
   async getRawJSON() {
-    // const XLSX = await this.CDN_or_Local();
     const url = this.isDev
       ? `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`
       : `https://66.rosstat.gov.ru/storage/mediabank/stat_calendar_${this.year}.xlsx`;
