@@ -1,55 +1,25 @@
 import { columns_needed } from "../utils/columns_needed.js";
-
-import { read, utils } from "xlsx";
-// const { read, utils } = XLSX;
+import { XLSX, url } from "../utils/settings.js";
 
 export class XLSX_parser {
-  constructor(year) {
-    this.year = year;
-  }
-
   async init() {
+    this.XLSX = await XLSX();
     this.rawJSON = await this.getRawJSON();
     this.sorted = await this.JSON_sorted();
   }
-
-  isDev =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1" ||
-    (typeof process !== "undefined" && process.env?.NODE_ENV === "development");
-
-  async CDN_or_Local() {
-    if (this.isDev) {
-      if (!window.XLSX) {
-        await new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src =
-            "https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/full.min.js";
-          script.onload = resolve;
-          document.head.appendChild(script);
-        });
-      }
-      return window.XLSX;
-    } else {
-      const xlsxModule = await import("xlsx");
-      return xlsxModule.default || xlsxModule;
-    }
-  }
-
   async getRawJSON() {
-    // const XLSX = await this.CDN_or_Local();
-    const url = this.isDev
-      ? `https://raw.githubusercontent.com/Kanoe99/files/main/stat_calendar_${this.year}.xlsx`
-      : `https://66.rosstat.gov.ru/storage/mediabank/stat_calendar_${this.year}.xlsx`;
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-    const workbook = read(arrayBuffer, { type: "array" });
+    const workbook = this.XLSX.read(arrayBuffer, { type: "array" });
 
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
 
-    const json = utils
-      .sheet_to_json(worksheet, { header: 1, defval: "" })
+    const json = this.XLSX.utils
+      .sheet_to_json(worksheet, {
+        header: 1,
+        defval: "",
+      })
       .map((row) => {
         return row.map((cell) => {
           if (cell !== undefined || cell !== null) {
@@ -96,7 +66,7 @@ export class XLSX_parser {
     const min_json = no_canceled.map((row, row_index) => {
       return row
         .map((cell, index) => ({
-          name: `${utils.encode_col(index)}.${row_index + 1}`,
+          name: `${this.XLSX.utils.encode_col(index)}.${row_index + 1}`,
           value: cell,
         }))
         .filter((cell, index) => indices_needed.includes(index))

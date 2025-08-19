@@ -2,7 +2,7 @@ import { Renderer } from "./UI/Renderer.js";
 import { CMS_BLOCK_ID } from "./utils/key.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const cms_block = document.getElementById(CMS_BLOCK_ID)?.parentElement;
+  const cms_block = document.getElementById(CMS_BLOCK_ID).parentElement;
 
   const head = document.head;
 
@@ -40,3 +40,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept();
 }
+
+import * as obj from "./configs/main_config.js";
+console.log("this is obj:", obj);
