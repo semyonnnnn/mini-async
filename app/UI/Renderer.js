@@ -91,86 +91,9 @@ export class Renderer {
       console.error(`this.data: ${this.data}`);
       return;
     }
-    this.createPicker(parent);
+    // this.createPicker(parent);
 
-    this.data.forEach((date, index) => {
-      const innerWrapper = document.createElement("div");
-      const circleDigit = document.createElement("div");
-      const list = document.createElement("div");
-      const circleWrapper = document.createElement("div");
-      const horizontalLine = document.createElement("div");
-      const verticalLine = document.createElement("div");
 
-      this.grandWrapper.classList = "grandWrapper";
-
-      circleDigit.classList = "circleDigit";
-      circleDigit.textContent = index + 1;
-      circleWrapper.classList = "circleWrapper";
-
-      horizontalLine.classList = "horizontalLine";
-      innerWrapper.appendChild(horizontalLine);
-      verticalLine.classList = "verticalLine";
-      innerWrapper.appendChild(verticalLine);
-
-      list.classList = "list";
-
-      innerWrapper.classList = "innerWrapper";
-
-      date.forEach((item) => {
-        const blueUpper = document.createElement("div");
-        const blackLower = document.createElement("div");
-
-        const smallListContainer = document.createElement("div");
-
-        blueUpper.textContent = item[0];
-        blackLower.textContent = item[1];
-
-        blueUpper.classList = "blueUpper";
-        blackLower.classList = "blackLower";
-
-        smallListContainer.classList = "smallListContainer";
-        smallListContainer.appendChild(blueUpper);
-        smallListContainer.appendChild(blackLower);
-
-        list.appendChild(smallListContainer);
-      });
-
-      circleWrapper.appendChild(circleDigit);
-      innerWrapper.appendChild(circleWrapper);
-      innerWrapper.appendChild(list);
-      outerWrapper.appendChild(innerWrapper);
-    });
-
-    this.grandWrapper.appendChild(outerWrapper);
-    const info = document.createElement("div");
-    info.classList = "info";
-
-    const qr = document.createElement("img");
-    qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
-    qr.classList = "qr";
-
-    const link = document.createElement("div");
-    link.classList = "link";
-    link.textContent = "получить индивидуальный перечень форм".toUpperCase();
-
-    info.appendChild(link);
-    info.appendChild(qr);
-    this.grandWrapper.appendChild(info);
-
-    parent.appendChild(this.grandWrapper);
-  }
-
-  getMonthNames(monthIndex) {
-    const date = new Date(this.state.displayedYear, monthIndex);
-    const raw_month = new Intl.DateTimeFormat("ru-RU", {
-      month: "long",
-    }).format(date);
-
-    const month = raw_month[0].toUpperCase() + raw_month.slice(1);
-    return month;
-  }
-
-  createPicker(parent) {
     const dateCalendrier = document.createElement("div");
     const statCalendrier = document.createElement("div");
     const dateWrapper = document.createElement("div");
@@ -245,7 +168,161 @@ export class Renderer {
     this.dateCalendrier.appendChild(dateWrapper);
 
     this.grandWrapper.appendChild(this.dateCalendrier);
+
+
+    this.data.forEach((date, index) => {
+      const innerWrapper = document.createElement("div");
+      const circleDigit = document.createElement("div");
+      const list = document.createElement("div");
+      const circleWrapper = document.createElement("div");
+      const horizontalLine = document.createElement("div");
+      const verticalLine = document.createElement("div");
+
+      this.grandWrapper.classList = "grandWrapper";
+
+      circleDigit.classList = "circleDigit";
+      circleDigit.textContent = index + 1;
+      circleWrapper.classList = "circleWrapper";
+
+      horizontalLine.classList = "horizontalLine";
+      innerWrapper.appendChild(horizontalLine);
+      verticalLine.classList = "verticalLine";
+      innerWrapper.appendChild(verticalLine);
+
+      list.classList = "list";
+
+      innerWrapper.classList = "innerWrapper";
+
+      date.forEach((item) => {
+        const blueUpper = document.createElement("div");
+        const blackLower = document.createElement("div");
+
+        const smallListContainer = document.createElement("div");
+
+        blueUpper.textContent = item[0];
+        blackLower.textContent = item[1];
+
+        blueUpper.classList = "blueUpper";
+        blackLower.classList = "blackLower";
+
+        smallListContainer.classList = "smallListContainer";
+        smallListContainer.appendChild(blueUpper);
+        smallListContainer.appendChild(blackLower);
+
+        list.appendChild(smallListContainer);
+      });
+
+      circleWrapper.appendChild(circleDigit);
+      innerWrapper.appendChild(circleWrapper);
+      innerWrapper.appendChild(list);
+      outerWrapper.appendChild(innerWrapper);
+    });
+
+    this.grandWrapper.appendChild(outerWrapper);
+    const info = document.createElement("div");
+    info.classList = "info";
+
+    const qr = document.createElement("img");
+    qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
+    qr.classList = "qr";
+
+    const link = document.createElement("div");
+    link.classList = "link";
+    link.textContent = "получить индивидуальный перечень форм".toUpperCase();
+
+    info.appendChild(link);
+    info.appendChild(qr);
+    this.grandWrapper.prepend(info);
+
+    parent.appendChild(this.grandWrapper);
   }
+
+  getMonthNames(monthIndex) {
+    const date = new Date(this.state.displayedYear, monthIndex);
+    const raw_month = new Intl.DateTimeFormat("ru-RU", {
+      month: "long",
+    }).format(date);
+
+    const month = raw_month[0].toUpperCase() + raw_month.slice(1);
+    return month;
+  }
+
+  // createPicker(parent) {
+  //   const dateCalendrier = document.createElement("div");
+  //   const statCalendrier = document.createElement("div");
+  //   const dateWrapper = document.createElement("div");
+
+  //   const yearWrapper = document.createElement("div");
+  //   const displayedYear = document.createElement("div");
+  //   const hiddenYear = document.createElement("div");
+
+  //   const monthsOuterWrapper = document.createElement("div");
+  //   const currentMonth = document.createElement("div");
+  //   const monthsInnerWrapper = document.createElement("div");
+
+  //   dateWrapper.classList = "dateWrapper";
+  //   statCalendrier.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
+  //   this.dateCalendrier.appendChild(dateWrapper);
+  //   this.dateCalendrier.appendChild(statCalendrier);
+  //   dateCalendrier.appendChild(this.dateCalendrier);
+  //   dateCalendrier.appendChild(dateWrapper);
+  //   statCalendrier.classList = "statCalendrier";
+  //   this.dateCalendrier.classList = "dateCalendrier";
+
+  //   yearWrapper.classList = "yearWrapper";
+
+  //   monthsOuterWrapper.classList = "monthsOuterWrapper";
+
+  //   hiddenYear.classList = "hiddenYear";
+  //   this.hiddenYear = hiddenYear;
+  //   hiddenYear.textContent = this.state.hiddenYear;
+  //   displayedYear.classList = "displayedYear";
+  //   this.displayedYearEl = displayedYear;
+  //   displayedYear.textContent = this.state.displayedYear;
+
+  //   yearWrapper.appendChild(displayedYear);
+  //   yearWrapper.appendChild(hiddenYear);
+
+  //   displayedYear.addEventListener("click", async () => {
+  //     const newYear = this.state.hiddenYear;
+  //     const temp = this.state.displayedYear;
+  //     this.state.displayedYear = newYear;
+  //     this.state.hiddenYear = temp;
+  //     this.hiddenYear.textContent = temp;
+  //   });
+
+  //   currentMonth.classList = "currentMonth";
+  //   this.currentMonthEl = currentMonth;
+
+  //   monthsInnerWrapper.classList = "monthsInnerWrapper";
+
+  //   for (let i = 0; i < 12; i++) {
+  //     const month = document.createElement("div");
+  //     month.textContent = this.getMonthNames(i);
+  //     month.className = "month";
+  //     monthsInnerWrapper.appendChild(month);
+
+  //     month.addEventListener("click", () => {
+  //       monthsInnerWrapper.style.display = "none";
+  //       this.state.currentMonth = i;
+  //     });
+  //   }
+
+  //   currentMonth.textContent = this.getMonthNames(this.state.currentMonth);
+
+  //   currentMonth.addEventListener("click", () => {
+  //     const style = monthsInnerWrapper.style;
+  //     style.display = style.display === "none" ? "block" : "none";
+  //   });
+
+  //   monthsOuterWrapper.appendChild(currentMonth);
+  //   monthsOuterWrapper.appendChild(monthsInnerWrapper);
+  //   dateWrapper.appendChild(monthsOuterWrapper);
+  //   dateWrapper.appendChild(yearWrapper);
+  //   this.dateCalendrier.appendChild(dateWrapper);
+
+  //   this.grandWrapper.appendChild(this.dateCalendrier);
+  // }
 
   assignStyles = () => {
     for (const className in styles) {
