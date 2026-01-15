@@ -9,10 +9,11 @@ export const grandWrapper = {
 };
 
 export const outerWrapper = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 2fr))",
+  display: "flex",
+  // gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 2fr))",
+  flexWrap: 'wrap',
   gap: "2rem",
-
+  justifyContent: 'center',
   padding: "2rem 1rem",
   overflow: "hidden",
 };
@@ -25,7 +26,7 @@ export const innerWrapper = {
   gap: "1rem",
 
   minWidth: "10rem",
-  width: "100%",
+  width: "fit-content",
   padding: "1rem .5rem",
   borderRadius: "10px",
 
@@ -34,13 +35,12 @@ export const innerWrapper = {
   fontWeight: 400,
   fontStyle: "normal",
   position: "relative",
+  justifyItems: 'stretch'
 };
 
 export const blueUpper = {
   color: "#0f81a3",
   textWrap: "wrap",
-
-  textAlign: "center",
   fontSize: "1.5rem",
   fontWeight: 400,
   fontStyle: "normal",
@@ -56,18 +56,20 @@ export const list = {
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "top",
   alignItems: "center",
   gap: "1rem",
   backgroundColor: "white",
-  padding: "1rem 0",
+  padding: "1rem 1rem",
   boxShadow: "3px 7px 7px rgba(0,0,0,.5)",
   zIndex: "3",
+  maxHeight: "30rem",
+  flexWrap: 'wrap',
 };
 
 export const smallListContainer = {
   padding: ".4rem 0",
-  width: "100%",
+  width: "fit-content",
   borderRadius: "10px",
 
   display: "flex",
