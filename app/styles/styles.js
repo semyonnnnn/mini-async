@@ -31,3 +31,42 @@ appendUniqueLink({
   rel: "stylesheet",
   href: "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap",
 });
+const printStyle = document.createElement("style");
+printStyle.textContent = `
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+  body {
+    margin: 0;
+    background: white;
+  }
+
+  /* hide non-essential UI */
+  .dateCalendrier,
+  .monthsOuterWrapper {
+    display: none !important;
+  }
+
+  /* printable content */
+  .print-page {
+    zoom: 0.85;
+  }
+
+  .print-page,
+  .print-page * {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* remove heavy visuals */
+  .circleWrapper,
+  .horizontalLine,
+  .verticalLine {
+    box-shadow: none !important;
+  }
+}
+`;
+document.head.appendChild(printStyle);

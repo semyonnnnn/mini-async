@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const preconnect2 = document.createElement("link");
   preconnect2.rel = "preconnect";
   preconnect2.href = "https://fonts.gstatic.com";
-  preconnect2.crossOrigin = ""; // same as crossorigin attribute
+  preconnect2.crossOrigin = "";
   head.appendChild(preconnect2);
 
   // 3rd link
@@ -34,6 +34,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     const renderer = new Renderer(cms_block);
     await renderer.init();
+
+    window.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "p") {
+        e.preventDefault(); // stop browser print
+        renderer.autoFitA4();
+        window.print();
+
+      }
+    });
   }
 });
 

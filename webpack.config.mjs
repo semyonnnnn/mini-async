@@ -27,18 +27,26 @@ export default {
     alias: isDev
       ? {}
       : {
-          xlsx: path.resolve(__dirname, "node_modules/xlsx/xlsx.mjs"),
-        },
+        xlsx: path.resolve(__dirname, "node_modules/xlsx/xlsx.mjs"),
+      },
     extensions: [".js", ".mjs", ".json"],
   },
   externals:
     process.env.NODE_ENV === "development"
       ? {
-          xlsx: "XLSX", // Treat as external in dev
-        }
+        xlsx: "XLSX", // Treat as external in dev
+      }
       : {},
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        type: "asset/source",
+      },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
       {
         test: /\.mjs$/,
         include: /node_modules/,

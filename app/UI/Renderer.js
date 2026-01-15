@@ -6,6 +6,7 @@ export class Renderer {
   constructor(cms_block) {
     this.cms_block = cms_block;
     this.grandWrapper = document.createElement("div");
+    this.grandWrapper.classList.add("print-page");
     this.dateCalendrier = document.createElement("div");
 
     this.requestedYear = new URLSearchParams(window.location.search).get("y");
@@ -351,4 +352,12 @@ export class Renderer {
       });
     }
   };
+
+  autoFitA4() {
+    const page = this.grandWrapper;
+    const A4_HEIGHT = 1122; // px @96dpi minus margins
+    const scale = Math.min(A4_HEIGHT / page.scrollHeight, 1);
+    page.style.zoom = scale;
+  }
+
 }
