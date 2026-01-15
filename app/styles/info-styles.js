@@ -96,6 +96,7 @@ export const link = {
   fontWeight: 600,
   display: "grid",
   placeItems: "center",
+  textDecoration: 'none',
 };
 export const qr = {
   width: "10rem",

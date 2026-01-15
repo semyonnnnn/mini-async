@@ -226,7 +226,8 @@ export class Renderer {
     qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
     qr.classList = "qr";
 
-    const link = document.createElement("div");
+    const link = document.createElement("a");
+    link.href = 'https://websbor.rosstat.gov.ru/online/info';
     link.classList = "link";
     link.textContent = "получить индивидуальный перечень форм".toUpperCase();
 
