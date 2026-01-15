@@ -1,6 +1,6 @@
 export const monthsOuterWrapper = {
   display: "flex",
-  gap: "2rem",
+  gap: "1rem",
   marginLeft: "0",
   position: "relative",
 };
@@ -22,7 +22,7 @@ export const currentMonth = {
   transform: "rotate(-5deg)",
   lineHeight: 1.4,
   overflow: "visible",
-  marginBottom: "5rem",
+  marginBottom: "2rem",
 };
 
 export const monthsInnerWrapper = {
@@ -43,7 +43,7 @@ export const monthsInnerWrapper = {
   left: "6rem",
   zIndex: "99",
   position: "absolute",
-  top: "10rem",
+  top: "6rem",
   left: "0rem",
 };
 
@@ -142,12 +142,13 @@ export const dateWrapper = {
   flexWrap: "wrap",
   justifyContent: "center",
   alignItems: "center",
+  marginTop: '1rem',
 };
 export const dateCalendrier = {
   display: "flex",
   flexDirection: "column",
-  gap: "3rem",
-  marginTop: "3rem",
+  gap: "1rem",
+  marginTop: "0rem",
   fontFamily: "Open Sans",
 };
 export const statCalendrier = {

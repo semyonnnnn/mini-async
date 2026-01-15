@@ -12,7 +12,7 @@ export const outerWrapper = {
   display: "flex",
   // gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 2fr))",
   flexWrap: 'wrap',
-  gap: "2rem",
+  gap: "1rem",
   justifyContent: 'center',
   padding: "2rem 1rem",
   overflow: "hidden",
@@ -41,9 +41,12 @@ export const innerWrapper = {
 export const blueUpper = {
   color: "#0f81a3",
   textWrap: "wrap",
-  fontSize: "1.5rem",
+  fontSize: "1.1rem",
   fontWeight: 400,
   fontStyle: "normal",
+  textAlign: 'center',
+  width: '12rem',
+  maxWidth: 'fit-content'
 };
 
 export const blackLower = {
@@ -58,12 +61,12 @@ export const list = {
   flexDirection: "column",
   justifyContent: "top",
   alignItems: "center",
-  gap: "1rem",
+  gap: ".3rem",
   backgroundColor: "white",
-  padding: "1rem 1rem",
+  padding: ".5rem",
   boxShadow: "3px 7px 7px rgba(0,0,0,.5)",
   zIndex: "3",
-  maxHeight: "30rem",
+  maxHeight: "33rem",
   flexWrap: 'wrap',
 };
 
