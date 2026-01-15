@@ -1,9 +1,9 @@
-// Renderer.js
-import * as styles from "../styles/styles.js";
 import { XLSX_parser } from "../Parsers/XLSX_parser.js";
+import { assignStyles } from "./assignStyles.js";
 
 export class Renderer {
   constructor(cms_block) {
+    this.assignStyles = assignStyles;
     this.cms_block = cms_block;
     this.grandWrapper = document.createElement("div");
     this.grandWrapper.classList.add("print-page");
@@ -63,8 +63,6 @@ export class Renderer {
         return updated;
       },
     });
-
-    // this.data = null;
   }
 
   async init() {
@@ -249,109 +247,7 @@ export class Renderer {
     return month;
   }
 
-  // createPicker(parent) {
-  //   const dateCalendrier = document.createElement("div");
-  //   const statCalendrier = document.createElement("div");
-  //   const dateWrapper = document.createElement("div");
 
-  //   const yearWrapper = document.createElement("div");
-  //   const displayedYear = document.createElement("div");
-  //   const hiddenYear = document.createElement("div");
-
-  //   const monthsOuterWrapper = document.createElement("div");
-  //   const currentMonth = document.createElement("div");
-  //   const monthsInnerWrapper = document.createElement("div");
-
-  //   dateWrapper.classList = "dateWrapper";
-  //   statCalendrier.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
-  //   this.dateCalendrier.appendChild(dateWrapper);
-  //   this.dateCalendrier.appendChild(statCalendrier);
-  //   dateCalendrier.appendChild(this.dateCalendrier);
-  //   dateCalendrier.appendChild(dateWrapper);
-  //   statCalendrier.classList = "statCalendrier";
-  //   this.dateCalendrier.classList = "dateCalendrier";
-
-  //   yearWrapper.classList = "yearWrapper";
-
-  //   monthsOuterWrapper.classList = "monthsOuterWrapper";
-
-  //   hiddenYear.classList = "hiddenYear";
-  //   this.hiddenYear = hiddenYear;
-  //   hiddenYear.textContent = this.state.hiddenYear;
-  //   displayedYear.classList = "displayedYear";
-  //   this.displayedYearEl = displayedYear;
-  //   displayedYear.textContent = this.state.displayedYear;
-
-  //   yearWrapper.appendChild(displayedYear);
-  //   yearWrapper.appendChild(hiddenYear);
-
-  //   displayedYear.addEventListener("click", async () => {
-  //     const newYear = this.state.hiddenYear;
-  //     const temp = this.state.displayedYear;
-  //     this.state.displayedYear = newYear;
-  //     this.state.hiddenYear = temp;
-  //     this.hiddenYear.textContent = temp;
-  //   });
-
-  //   currentMonth.classList = "currentMonth";
-  //   this.currentMonthEl = currentMonth;
-
-  //   monthsInnerWrapper.classList = "monthsInnerWrapper";
-
-  //   for (let i = 0; i < 12; i++) {
-  //     const month = document.createElement("div");
-  //     month.textContent = this.getMonthNames(i);
-  //     month.className = "month";
-  //     monthsInnerWrapper.appendChild(month);
-
-  //     month.addEventListener("click", () => {
-  //       monthsInnerWrapper.style.display = "none";
-  //       this.state.currentMonth = i;
-  //     });
-  //   }
-
-  //   currentMonth.textContent = this.getMonthNames(this.state.currentMonth);
-
-  //   currentMonth.addEventListener("click", () => {
-  //     const style = monthsInnerWrapper.style;
-  //     style.display = style.display === "none" ? "block" : "none";
-  //   });
-
-  //   monthsOuterWrapper.appendChild(currentMonth);
-  //   monthsOuterWrapper.appendChild(monthsInnerWrapper);
-  //   dateWrapper.appendChild(monthsOuterWrapper);
-  //   dateWrapper.appendChild(yearWrapper);
-  //   this.dateCalendrier.appendChild(dateWrapper);
-
-  //   this.grandWrapper.appendChild(this.dateCalendrier);
-  // }
-
-  assignStyles = () => {
-    for (const className in styles) {
-      const baseStyle = styles[className];
-      const hoverStyle = baseStyle.hover;
-
-      const { hover, ...staticStyle } = baseStyle;
-
-      const elements = document.querySelectorAll(`.${className}`);
-      elements.forEach((element) => {
-        Object.assign(element.style, staticStyle);
-
-        if (hoverStyle) {
-          element.addEventListener("mouseenter", () => {
-            Object.assign(element.style, hoverStyle);
-          });
-
-          element.addEventListener("mouseleave", () => {
-            for (const prop in hoverStyle) {
-              element.style[prop] = "";
-            }
-            Object.assign(element.style, staticStyle);
-          });
-        }
-      });
-    }
-  };
 
   autoFitA4() {
     const page = this.grandWrapper;
