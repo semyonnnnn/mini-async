@@ -1,0 +1,91 @@
+<!-- ^ duplicate of grandWrapper -->
+<div class="print-page"> <!-- grandWrapper -->
+
+    <!-- Info block (static, prepended) -->
+    <!-- ! done -->
+    <!-- <div class="info">
+        <a href="https://websbor.rosstat.gov.ru/online/info" class="link">
+            ПОЛУЧИТЬ ИНДИВИДУАЛЬНЫЙ ПЕРЕЧЕНЬ ФОРМ
+        </a>
+        <img src="https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg" class="qr">
+    </div> -->
+    <!-- ! done -->
+
+    <!-- ~ Date Calendrier -->
+    <div class="dateCalendrier">
+        <!-- * date wrapper -->
+        <div class="dateWrapper">
+
+            <!-- Months and year selector -->
+            <div class="monthsOuterWrapper">
+                <div class="currentMonth"> <!-- dynamic: this.state.currentMonth -->
+                    Январь <!-- example month -->
+                </div>
+                <div class="monthsInnerWrapper" style="display:none;">
+                    <!-- dynamic: loop over 12 months -->
+                    <div class="month">Январь</div>
+                    <div class="month">Февраль</div>
+                    <div class="month">Март</div>
+                    <div class="month">Апрель</div>
+                    <div class="month">Май</div>
+                    <div class="month">Июнь</div>
+                    <div class="month">Июль</div>
+                    <div class="month">Август</div>
+                    <div class="month">Сентябрь</div>
+                    <div class="month">Октябрь</div>
+                    <div class="month">Ноябрь</div>
+                    <div class="month">Декабрь</div>
+                </div>
+            </div>
+
+            <div class="yearWrapper">
+                <div class="displayedYear">2026</div> <!-- dynamic: this.state.displayedYear -->
+                <div class="hiddenYear">2025</div> <!-- dynamic: this.state.hiddenYear -->
+            </div>
+        </div>
+        <!-- * date wrapper -->
+
+        <!-- Title -->
+        <div class="statCalendrier">СТАТКАЛЕНДАРЬ</div>
+    </div>
+    <!-- ~ Date Calendrier -->
+
+    <!-- Outer wrapper for all dates -->
+    <div class="outerWrapper">
+
+        <!-- Dynamic loop over this.data -->
+        <div class="innerWrapper">
+            <div class="horizontalLine"></div>
+            <div class="verticalLine"></div>
+
+            <div class="circleWrapper">
+                <div class="circleDigit">1</div> <!-- dynamic index -->
+            </div>
+
+            <div class="list">
+                <!-- Dynamic loop over items in a single date -->
+                <div class="smallListContainer">
+                    <div class="blueUpper">Dynamic value 0</div>
+                    <div class="blackLower">Dynamic value 1</div>
+                </div>
+                <div class="smallListContainer">
+                    <div class="blueUpper">Dynamic value 0</div>
+                    <div class="blackLower">Dynamic value 1</div>
+                </div>
+                <!-- ... repeat per item -->
+            </div>
+        </div>
+
+        <!-- Repeat innerWrapper per date in this.data -->
+        <div class="innerWrapper">
+            <!-- ... same structure as above -->
+        </div>
+        <div class="innerWrapper">
+            <!-- ... -->
+        </div>
+        <!-- ... more innerWrapper divs depending on this.data.length -->
+
+    </div> <!-- end outerWrapper -->
+
+</div> <!-- end grandWrapper -->
+<!-- ^ duplicate of grandWrapper -->

@@ -1,8 +1,13 @@
 import { XLSX_parser } from "../Parsers/XLSX_parser.js";
 import { assignStyles } from "./assignStyles.js";
+import { create_HTML } from "./js_into_dom.js";
+
+import { info } from './dynamic_templates/info.js';
+import { my_dateCalendrier } from "./dynamic_templates/dateCalendrier.js";
 
 export class Renderer {
   constructor(cms_block) {
+    console.log('my_dateCalendrier', my_dateCalendrier);
     this.assignStyles = assignStyles;
     this.cms_block = cms_block;
     this.grandWrapper = document.createElement("div");
@@ -148,7 +153,7 @@ export class Renderer {
       monthsInnerWrapper.appendChild(month);
 
       month.addEventListener("click", () => {
-        monthsInnerWrapper.style.display = "none";
+        // monthsInnerWrapper.style.display = "none";
         this.state.currentMonth = i;
       });
     }
@@ -165,6 +170,9 @@ export class Renderer {
     dateWrapper.appendChild(monthsOuterWrapper);
     dateWrapper.appendChild(yearWrapper);
     this.dateCalendrier.appendChild(dateWrapper);
+
+    create_HTML(info, this.grandWrapper);
+    create_HTML(my_dateCalendrier, this.grandWrapper);
 
     this.grandWrapper.appendChild(this.dateCalendrier);
 
@@ -218,21 +226,6 @@ export class Renderer {
     });
 
     this.grandWrapper.appendChild(outerWrapper);
-    const info = document.createElement("div");
-    info.classList = "info";
-
-    const qr = document.createElement("img");
-    qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
-    qr.classList = "qr";
-
-    const link = document.createElement("a");
-    link.href = 'https://websbor.rosstat.gov.ru/online/info';
-    link.classList = "link";
-    link.textContent = "получить индивидуальный перечень форм".toUpperCase();
-
-    info.appendChild(link);
-    info.appendChild(qr);
-    this.grandWrapper.prepend(info);
 
     parent.appendChild(this.grandWrapper);
   }
@@ -247,13 +240,10 @@ export class Renderer {
     return month;
   }
 
-
-
   autoFitA4() {
     const page = this.grandWrapper;
     const A4_HEIGHT = 1122; // px @96dpi minus margins
     const scale = Math.min(A4_HEIGHT / page.scrollHeight, 1);
     page.style.zoom = scale;
   }
-
 }
