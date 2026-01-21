@@ -5,9 +5,8 @@ export class Renderer {
   constructor(cms_block) {
     this.assignStyles = assignStyles;
     this.cms_block = cms_block;
-    this.grandWrapper = document.createElement("div");
-    this.grandWrapper.classList.add("print-page");
-    this.dateCalendrier = document.createElement("div");
+    this.grandWrapper = this.create.div(['grandWrapper', 'print-page']);
+    this.dateCalendrier = this.create.div('dateCalendrier');
 
     this.requestedYear = new URLSearchParams(window.location.search).get("y");
     this.requestedMonth = (() => {
@@ -84,46 +83,31 @@ export class Renderer {
   };
 
   create_DOM(parent) {
-    const outerWrapper = document.createElement("div");
-    outerWrapper.classList = "outerWrapper";
+    const outerWrapper = this.create.div('outerWrapper');
     if (!Array.isArray(this.data)) {
       console.error(`this.data: ${this.data}`);
       return;
     }
-    // this.createPicker(parent);
 
-    const statCalendrier = () => {
-      const el = document.createElement('div');
-      el.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
-      el.classList = "statCalendrier";
-      return el;
-    };
+    const statCalendrier = this.create.div('statCalendrier');
+    statCalendrier.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
 
+    const dateWrapper = this.create.div('dateWrapper');
 
+    const yearWrapper = this.create.div('yearWrapper');
+    const displayedYear = this.create.div('displayedYear');
+    const hiddenYear = this.create.div('hiddenYear')
 
-    const dateWrapper = document.createElement("div");
+    const monthsOuterWrapper = this.create.div('monthsOuterWrapper');
 
-    const yearWrapper = document.createElement("div");
-    const displayedYear = document.createElement("div");
-    const hiddenYear = document.createElement("div");
+    const currentMonth = this.create.div('currentMonth');
+    const monthsInnerWrapper = this.create.div('monthsInnerWrapper');
 
-    const monthsOuterWrapper = document.createElement("div");
-    const currentMonth = document.createElement("div");
-    const monthsInnerWrapper = document.createElement("div");
-
-    dateWrapper.classList = "dateWrapper";
     this.dateCalendrier.appendChild(dateWrapper);
-    this.dateCalendrier.appendChild(statCalendrier());
-    this.dateCalendrier.classList = "dateCalendrier";
+    this.dateCalendrier.appendChild(statCalendrier);
 
-    yearWrapper.classList = "yearWrapper";
 
-    monthsOuterWrapper.classList = "monthsOuterWrapper";
-
-    hiddenYear.classList = "hiddenYear";
-    this.hiddenYear = hiddenYear;
     hiddenYear.textContent = this.state.hiddenYear;
-    displayedYear.classList = "displayedYear";
     this.displayedYearEl = displayedYear;
     displayedYear.textContent = this.state.displayedYear;
 
@@ -135,13 +119,10 @@ export class Renderer {
       const temp = this.state.displayedYear;
       this.state.displayedYear = newYear;
       this.state.hiddenYear = temp;
-      this.hiddenYear.textContent = temp;
+      hiddenYear.textContent = temp;
     });
 
-    currentMonth.classList = "currentMonth";
     this.currentMonthEl = currentMonth;
-
-    monthsInnerWrapper.classList = "monthsInnerWrapper";
 
     for (let i = 0; i < 12; i++) {
       const month = document.createElement("div");
@@ -172,41 +153,30 @@ export class Renderer {
 
 
     this.data.forEach((date, index) => {
-      const innerWrapper = document.createElement("div");
-      const circleDigit = document.createElement("div");
-      const list = document.createElement("div");
-      const circleWrapper = document.createElement("div");
-      const horizontalLine = document.createElement("div");
-      const verticalLine = document.createElement("div");
+      const innerWrapper = this.create.div('innerWrapper');
+      const circleDigit = this.create.div('circleDigit');
+      const list = this.create.div('list');
+      const circleWrapper = this.create.div('circleWrapper');
+      const horizontalLine = this.create.div('horizontalLine');
+      const verticalLine = this.create.div('verticalLine')
 
-      this.grandWrapper.classList = "grandWrapper";
 
-      circleDigit.classList = "circleDigit";
+
       circleDigit.textContent = index + 1;
-      circleWrapper.classList = "circleWrapper";
-
-      horizontalLine.classList = "horizontalLine";
       innerWrapper.appendChild(horizontalLine);
-      verticalLine.classList = "verticalLine";
       innerWrapper.appendChild(verticalLine);
 
-      list.classList = "list";
 
-      innerWrapper.classList = "innerWrapper";
 
       date.forEach((item) => {
-        const blueUpper = document.createElement("div");
-        const blackLower = document.createElement("div");
+        const blueUpper = this.create.div('blueUpper', {
+          textContent: item[0]
+        });
+        const blackLower = this.create.div('blackLower', {
+          textContent: item[1]
+        });
+        const smallListContainer = this.create.div('smallListContainer');
 
-        const smallListContainer = document.createElement("div");
-
-        blueUpper.textContent = item[0];
-        blackLower.textContent = item[1];
-
-        blueUpper.classList = "blueUpper";
-        blackLower.classList = "blackLower";
-
-        smallListContainer.classList = "smallListContainer";
         smallListContainer.appendChild(blueUpper);
         smallListContainer.appendChild(blackLower);
 
@@ -220,17 +190,14 @@ export class Renderer {
     });
 
     this.grandWrapper.appendChild(outerWrapper);
-    const info = document.createElement("div");
-    info.classList = "info";
+    const info = this.create.div('info');
 
-    const qr = document.createElement("img");
-    qr.src = "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg";
-    qr.classList = "qr";
+    const qr = this.create.img('qr', { src: "https://66.rosstat.gov.ru/storage/mediabank/qr-code.svg" });
 
-    const link = document.createElement("a");
-    link.href = 'https://websbor.rosstat.gov.ru/online/info';
-    link.classList = "link";
-    link.textContent = "получить индивидуальный перечень форм".toUpperCase();
+    const link = this.create.link('link', {
+      href: 'https://websbor.rosstat.gov.ru/online/info',
+      textContent: "получить индивидуальный перечень форм".toUpperCase()
+    });
 
     info.appendChild(link);
     info.appendChild(qr);
@@ -248,6 +215,23 @@ export class Renderer {
     const month = raw_month[0].toUpperCase() + raw_month.slice(1);
     return month;
   }
+
+  #create_with_class = (html, classes) => {
+    const el = document.createElement(html);
+    if (Array.isArray(classes)) el.classList.add(...classes);
+    else el.classList.add(classes);
+    return el;
+  };
+
+  create = Object.freeze({
+    div: (classes, attrs) => Object.assign(this.#create_with_class('div', classes), attrs),
+    img: (classes, attrs) => Object.assign(this.#create_with_class('img', classes), attrs),
+    span: (classes, attrs) => Object.assign(this.#create_with_class('span', classes), attrs),
+    link: (classes, attrs) => Object.assign(this.#create_with_class('a', classes), attrs),
+  });
+
+
+
 
 
 
