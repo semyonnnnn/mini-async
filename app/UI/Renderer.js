@@ -92,9 +92,15 @@ export class Renderer {
     }
     // this.createPicker(parent);
 
+    const statCalendrier = () => {
+      const el = document.createElement('div');
+      el.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
+      el.classList = "statCalendrier";
+      return el;
+    };
 
-    const dateCalendrier = document.createElement("div");
-    const statCalendrier = document.createElement("div");
+
+
     const dateWrapper = document.createElement("div");
 
     const yearWrapper = document.createElement("div");
@@ -106,12 +112,8 @@ export class Renderer {
     const monthsInnerWrapper = document.createElement("div");
 
     dateWrapper.classList = "dateWrapper";
-    statCalendrier.innerText = "СТАТКАЛЕНДАРЬ".toUpperCase();
     this.dateCalendrier.appendChild(dateWrapper);
-    this.dateCalendrier.appendChild(statCalendrier);
-    dateCalendrier.appendChild(this.dateCalendrier);
-    dateCalendrier.appendChild(dateWrapper);
-    statCalendrier.classList = "statCalendrier";
+    this.dateCalendrier.appendChild(statCalendrier());
     this.dateCalendrier.classList = "dateCalendrier";
 
     yearWrapper.classList = "yearWrapper";

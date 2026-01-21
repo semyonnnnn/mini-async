@@ -1,0 +1,103 @@
+/* info-styles.css */
+
+.grandWrapper {
+  padding: 0rem;
+  /* background-color: rgba(255, 245, 255, 0.1); */
+  background-image: url("https://66.rosstat.gov.ru/storage/mediabank/tile.png");
+  background-repeat: repeat;
+  border-radius: 2rem;
+}
+
+.outerWrapper {
+  display: flex;
+  /* grid-template-columns: repeat(auto-fit, minmax(12rem, 2fr)); */
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+
+.innerWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  min-width: 10rem;
+  width: fit-content;
+  padding: 1rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  position: relative;
+  justify-items: stretch;
+}
+
+.blueUpper {
+  color: #0f81a3;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  width: 12rem;
+  max-width: fit-content;
+  word-wrap: break-word;
+}
+
+.blackLower {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: rgb(51, 51, 51);
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: 3px 7px 7px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  max-height: 33rem;
+  flex-wrap: wrap;
+}
+
+.smallListContainer {
+  padding: 0.4rem 0;
+  width: fit-content;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 5rem;
+}
+
+.link {
+  color: white;
+  background-color: #22608a;
+  font-family: "Open Sans", sans-serif;
+  width: 17rem;
+  padding: 2rem;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.qr {
+  width: 10rem;
+  height: 10rem;
+}

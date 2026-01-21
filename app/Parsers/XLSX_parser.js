@@ -20,7 +20,7 @@ export class XLSX_parser {
 
   async getRawJSON() {
     const url = this.isDev
-      ? `https://raw.githubusercontent.com/semyonnnnn/files/main/stat_calendar_2025.xlsx`
+      ? `https://raw.githubusercontent.com/semyonnnnn/files/main/stat_calendar_${this.year}.xlsx`
       : `https://66.rosstat.gov.ru/storage/mediabank/stat_calendar_${this.year}.xlsx`;
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
