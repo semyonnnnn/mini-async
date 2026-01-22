@@ -1,3 +1,4 @@
+
 export const monthsOuterWrapper = {
   display: "flex",
   gap: "1rem",
@@ -26,6 +27,7 @@ export const currentMonth = {
 };
 
 export const monthsInnerWrapper = {
+  zIndex: '101',
   textWrap: "nowrap",
   userSelect: "none",
   display: "flex",
@@ -41,7 +43,6 @@ export const monthsInnerWrapper = {
   display: "none",
   position: "absolute",
   left: "6rem",
-  zIndex: "99",
   position: "absolute",
   top: "6rem",
   left: "0rem",
@@ -72,6 +73,14 @@ const year = {
   backgroundColor: "#3a98b0",
   fontFamily: "Dela Gothic One",
 };
+export const arrow = {
+  width: '7rem',
+  position: 'absolute',
+  left: '-9rem',
+  rotate: '45deg',
+  top: '-2rem',
+  pointerEvents: 'none'
+};
 export const yearWrapper = {
   height: "5rem",
   display: "flex",
@@ -94,9 +103,9 @@ export const displayedYear = {
 
 export const circleWrapper = {
   backgroundColor: "white",
-  fontSize: "4rem",
-  width: "7rem",
-  height: "7rem",
+  fontSize: "2rem",
+  width: "5rem",
+  height: "5rem",
   borderRadius: "1000px",
   position: "relative",
   boxShadow: "0px 7px 10px rgba(0,0,0,.3)",

@@ -1,29 +1,85 @@
 import { Renderer } from "./UI/Renderer.js";
 import { CMS_BLOCK_ID } from "./utils/key.js";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+
+async function downloadCalendarPDF() {
+  const element = document.querySelector(".grandWrapper");
+  element.style.borderRadius = '0';
+  element.querySelectorAll('.hiddenYear').forEach(el => el.style.display = 'none');
+  const infoBlock = document.querySelector('.info');
+  if (infoBlock) infoBlock.style.display = 'none';
+
+  // Render element to canvas
+  const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#3a98b0" });
+
+  const A4_WIDTH = 595.28;  // pt
+  const A4_HEIGHT = 841.89; // pt
+
+  // Calculate scale to fit both width and height
+  const scaleX = A4_WIDTH / canvas.width;
+  const scaleY = A4_HEIGHT / canvas.height;
+  const scale = Math.min(scaleX, scaleY); // scale down proportionally
+
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
+  });
+
+  const imgWidth = canvas.width * scale;
+  const imgHeight = canvas.height * scale;
+
+  const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+  // Optional: fill background
+  pdf.setFillColor(58, 152, 176); // your color
+  pdf.rect(0, 0, A4_WIDTH, A4_HEIGHT, 'F');
+
+  // Add scaled image centered
+  const marginX = (A4_WIDTH - imgWidth) / 2;
+  const marginY = (A4_HEIGHT - imgHeight) / 2;
+  pdf.addImage(imgData, 'JPEG', marginX, marginY, imgWidth, imgHeight);
+
+  const date = {
+    year: document.querySelector('.displayedYear').textContent,
+    month: document.querySelector('.currentMonth').textContent
+  };
+
+  pdf.save(`статкалендарь_${date.month}_${date.year}.pdf`);
+
+  if (infoBlock) infoBlock.style.display = 'flex';
+  element.style.borderRadius = '2rem';
+}
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const cms_block = document.getElementById(CMS_BLOCK_ID)?.parentElement;
 
   const head = document.head;
 
-  // 1st link
-  const preconnect1 = document.createElement("link");
-  preconnect1.rel = "preconnect";
-  preconnect1.href = "https://fonts.googleapis.com";
-  head.appendChild(preconnect1);
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.download_button');
+    if (!btn) return;
+    downloadCalendarPDF();
+  });
 
-  // 2nd link
-  const preconnect2 = document.createElement("link");
-  preconnect2.rel = "preconnect";
-  preconnect2.href = "https://fonts.gstatic.com";
-  preconnect2.crossOrigin = "";
-  head.appendChild(preconnect2);
+  // Google Fonts
+  ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'].forEach(href => {
+    const link = document.createElement("link");
+    link.rel = "preconnect";
+    link.href = href;
+    if (href.includes('gstatic')) link.crossOrigin = "";
+    head.appendChild(link);
+  });
 
-  // 3rd link
   const fontStyles = document.createElement("link");
   fontStyles.rel = "stylesheet";
-  fontStyles.href =
-    "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap";
+  fontStyles.href = "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat+Alternates:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap";
   head.appendChild(fontStyles);
 
   if (cms_block) {
@@ -38,14 +94,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.addEventListener("keydown", (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "p") {
         e.preventDefault(); // stop browser print
-        renderer.autoFitA4();
-        window.print();
-
+        downloadCalendarPDF();
       }
     });
   }
 });
 
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept();
-}
+if (import.meta.webpackHot) import.meta.webpackHot.accept();

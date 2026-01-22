@@ -16,15 +16,21 @@ export const outerWrapper = {
   justifyContent: 'center',
   padding: "2rem 1rem",
   overflow: "hidden",
+  pageBreakAfter: 'always'
 };
-
+export const veil = {
+  position: 'fixed',
+  inset: '0',
+  zIndex: '100',
+  display: 'none'
+};
 export const innerWrapper = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "start",
   alignItems: "center",
   gap: "1rem",
-
+  pageBreakInside: 'avoid',
   minWidth: "10rem",
   width: "fit-content",
   padding: "1rem .5rem",
@@ -41,7 +47,7 @@ export const innerWrapper = {
 export const blueUpper = {
   color: "#0f81a3",
   textWrap: "wrap",
-  fontSize: "1.1rem",
+  fontSize: ".9rem",
   fontWeight: 400,
   fontStyle: "normal",
   textAlign: 'center',
@@ -51,7 +57,7 @@ export const blueUpper = {
 
 export const blackLower = {
   fontWeight: 400,
-  fontSize: "1.2rem",
+  fontSize: ".9rem",
   color: "rgb(51, 51, 51)",
 };
 
@@ -86,6 +92,16 @@ export const info = {
   justifyContent: "space-between",
   alignItems: "center",
   padding: "2rem 5rem",
+};
+export const download_button = {
+  color: 'white',
+  background: 'linear-gradient(to right, #ff6ec7, #41b5f8)',
+  outline: 'none',
+  cursor: 'pointer',
+  border: 'none',
+  fontSize: '2rem',
+  width: "17rem",
+  padding: "2rem",
 };
 export const link = {
   color: "white",

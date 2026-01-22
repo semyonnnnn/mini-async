@@ -37,6 +37,16 @@ printStyle.textContent = `
   size: A4;
   margin: 10mm;
 }
+   @media (min-width: 1313px) {
+    .container {
+      max-width: 2000px !important; /* override external CSS */
+    }
+  }
+
+  /* optionally override all breakpoints */
+  .container {
+    max-width: 100% !important;
+  }
 
 @media print {
   body {
