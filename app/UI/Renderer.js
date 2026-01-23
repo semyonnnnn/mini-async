@@ -8,9 +8,12 @@ export class Renderer {
     this.grandWrapper = this.create.div(['grandWrapper', 'print-page']);
     this.dateCalendrier = this.create.div('dateCalendrier');
     this.veil = this.create.div(['veil', 'display_none']);
+    this.arrow_container = this.create.div('arrow_container', {
+      textContent: 'кликни'
+    });
     this.arrow = this.create.img('arrow', {
-      src: '/arrow.png'
-      // src: 'https://66.rosstat.gov.ru/storage/mediabank/arrow.png'
+      // src: '/img/arrow.png'
+      src: 'https://66.rosstat.gov.ru/storage/mediabank/arrow.png'
     });
 
 
@@ -158,7 +161,8 @@ export class Renderer {
       monthsInnerWrapper_style.display = monthsInnerWrapper_style.display === "none" ? "block" : "none";
     });
 
-    currentMonth.appendChild(this.arrow);
+    this.arrow_container.appendChild(this.arrow);
+    dateWrapper.appendChild(this.arrow_container);
     monthsOuterWrapper.appendChild(currentMonth);
     monthsOuterWrapper.appendChild(monthsInnerWrapper);
     dateWrapper.appendChild(monthsOuterWrapper);

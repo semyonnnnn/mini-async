@@ -29,7 +29,7 @@ export const innerWrapper = {
   flexDirection: "column",
   justifyContent: "start",
   alignItems: "center",
-  gap: "1rem",
+  gap: ".5rem",
   pageBreakInside: 'avoid',
   minWidth: "10rem",
   width: "fit-content",

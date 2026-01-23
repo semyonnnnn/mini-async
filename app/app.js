@@ -8,7 +8,9 @@ async function downloadCalendarPDF() {
   element.style.borderRadius = '0';
   element.querySelectorAll('.hiddenYear').forEach(el => el.style.display = 'none');
   const infoBlock = document.querySelector('.info');
+  const arrow_container = document.querySelector('.arrow_container');
   if (infoBlock) infoBlock.style.display = 'none';
+  if (arrow_container) arrow_container.style.display = 'none';
 
   // Render element to canvas
   const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#3a98b0" });
@@ -49,6 +51,7 @@ async function downloadCalendarPDF() {
   pdf.save(`статкалендарь_${date.month}_${date.year}.pdf`);
 
   if (infoBlock) infoBlock.style.display = 'flex';
+  if (arrow_container) arrow_container.style.display = 'block';
   element.style.borderRadius = '2rem';
 }
 

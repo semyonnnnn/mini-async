@@ -73,12 +73,18 @@ const year = {
   backgroundColor: "#3a98b0",
   fontFamily: "Dela Gothic One",
 };
+export const arrow_container = {
+  position: 'absolute',
+  left: '35rem',
+  top: '-1rem',
+  fontWeight: '900',
+  color: '#22608a'
+};
 export const arrow = {
   width: '7rem',
   position: 'absolute',
-  left: '-9rem',
   rotate: '45deg',
-  top: '-2rem',
+  top: '-1rem',
   pointerEvents: 'none'
 };
 export const yearWrapper = {
@@ -104,8 +110,8 @@ export const displayedYear = {
 export const circleWrapper = {
   backgroundColor: "white",
   fontSize: "2rem",
-  width: "5rem",
-  height: "5rem",
+  width: "3rem",
+  height: "3rem",
   borderRadius: "1000px",
   position: "relative",
   boxShadow: "0px 7px 10px rgba(0,0,0,.3)",
@@ -130,18 +136,18 @@ export const horizontalLine = {
   position: "absolute",
   backgroundColor: "white",
   width: "100%",
-  height: ".7rem",
+  height: ".3rem",
   zIndex: "2",
-  top: "6rem",
+  top: "3rem",
   boxShadow: "0px 5px 5px rgb(50,50,50)",
 };
 export const verticalLine = {
   position: "absolute",
   backgroundColor: "white",
-  width: ".7rem",
+  width: ".3rem",
   height: "3rem",
   zIndex: "2",
-  top: "6rem",
+  top: "3rem",
   boxShadow: "0 3px 5px rgb(50,50,50)",
 };
 
@@ -152,6 +158,7 @@ export const dateWrapper = {
   justifyContent: "center",
   alignItems: "center",
   marginTop: '1rem',
+  position: 'relative'
 };
 export const dateCalendrier = {
   display: "flex",
