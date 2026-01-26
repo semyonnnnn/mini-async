@@ -74,17 +74,14 @@ const year = {
   fontFamily: "Dela Gothic One",
 };
 export const arrow_container = {
-  position: 'absolute',
-  left: '35rem',
-  top: '-1rem',
+  display: 'flex',
   fontWeight: '900',
-  color: '#22608a'
+  color: '#22608a',
+  userSelect: 'none',
 };
 export const arrow = {
   width: '7rem',
-  position: 'absolute',
   rotate: '45deg',
-  top: '-1rem',
   pointerEvents: 'none'
 };
 export const yearWrapper = {
