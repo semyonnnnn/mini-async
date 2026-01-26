@@ -15,19 +15,20 @@ async function downloadCalendarPDF() {
   // Render element to canvas
   const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#3a98b0" });
 
-  const A4_WIDTH = 595.28;  // pt
-  const A4_HEIGHT = 841.89; // pt
+  const isLandscape = true; // or decide dynamically
+  const A4_WIDTH = isLandscape ? 841.89 : 595.28;
+  const A4_HEIGHT = isLandscape ? 595.28 : 841.89;
 
-  // Calculate scale to fit both width and height
   const scaleX = A4_WIDTH / canvas.width;
   const scaleY = A4_HEIGHT / canvas.height;
-  const scale = Math.min(scaleX, scaleY); // scale down proportionally
+  const scale = Math.min(scaleX, scaleY);
 
   const pdf = new jsPDF({
-    orientation: 'portrait',
+    orientation: isLandscape ? 'landscape' : 'portrait',
     unit: 'pt',
     format: 'a4',
   });
+
 
   const imgWidth = canvas.width * scale;
   const imgHeight = canvas.height * scale;

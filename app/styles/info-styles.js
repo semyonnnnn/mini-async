@@ -94,8 +94,9 @@ export const info = {
   padding: "2rem 5rem",
 };
 export const download_button = {
-  color: 'white',
-  background: 'linear-gradient(to right, #ff6ec7, #41b5f8)',
+  color: '#22608a',
+  fontWeight: 900,
+  backgroundColor: '#72e7bc',
   outline: 'none',
   cursor: 'pointer',
   border: 'none',

@@ -218,8 +218,8 @@ export class Renderer {
     });
     const download_button = this.create.button('download_button', {
       title:
-        "Кнопка манит нас,\nСтарости радость внутри,\nЩёлк — и PDF готов.",
-      textContent: 'Zагрузить'
+        "Кнопка манит нас,\nКалендарь отдай мне сайт,\nЩёлк — PDF тут.",
+      textContent: 'Скачать'
     });
 
     info.appendChild(link);
